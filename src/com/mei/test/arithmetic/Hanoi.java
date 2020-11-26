@@ -1,34 +1,34 @@
 package com.mei.test.arithmetic;
 
 /**
- * µİ¹éË¼Ïë£ºººÅµËşÊµÏÖ
+ * é€’å½’æ€æƒ³ï¼šæ±‰è¯ºå¡”å®ç°
  */
 public class Hanoi {
 
-	/**
-	 * ººÅµËş
-	 * 
-	 * @param count
-	 *            ÅÌ×ÓÊıÁ¿
-	 * @param first
-	 *            µÚÒ»¸ùÖù×Ó
-	 * @param second
-	 *            µÚ¶ş¸ùÖù×Ó
-	 * @param three
-	 *            µÚÈı¸öÖù×Ó
-	 */
-	public static void hanoi(int count, String first, String second,
-			String three) {
-		if (count < 1) {
-			return;
-		}
-		hanoi(count - 1, first, three, second);
-		System.out.println(first + "->" + three);
-		hanoi(count - 1, second, first, three);
-	}
+    /**
+     * æ±‰è¯ºå¡”
+     *
+     * @param count
+     *            ç›˜å­æ•°é‡
+     * @param first
+     *            ç¬¬ä¸€æ ¹æŸ±å­
+     * @param second
+     *            ç¬¬äºŒæ ¹æŸ±å­
+     * @param three
+     *            ç¬¬ä¸‰ä¸ªæŸ±å­
+     */
+    public static void hanoi(int count, String first, String second,
+            String three) {
+        if (count < 1) {
+            return;
+        }
+        hanoi(count - 1, first, three, second);
+        System.out.println(first + "->" + three);
+        hanoi(count - 1, second, first, three);
+    }
 
-	public static void main(String[] args) {
-		hanoi(4, "A", "B", "C");
-	}
+    public static void main(String[] args) {
+        hanoi(4, "A", "B", "C");
+    }
 
 }

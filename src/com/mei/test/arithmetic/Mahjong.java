@@ -1,23 +1,23 @@
 package com.mei.test.arithmetic;
 
 /**
- * Âé½«ÊµÌåÀà
+ * éº»å°†å®ä½“ç±»
  */
 public class Mahjong {
 
-	public int suit;// »¨É«£¬Í²×Ó£¬Íò×Ó£¬Ìõ×Ó
+    public int suit;// èŠ±è‰²ï¼Œç­’å­ï¼Œä¸‡å­ï¼Œæ¡å­
 
-	public int rank;// µãÊı
+    public int rank;// ç‚¹æ•°
 
-	public Mahjong(int suit, int rank) {
-		super();
-		this.suit = suit;
-		this.rank = rank;
-	}
+    public Mahjong(int suit, int rank) {
+        super();
+        this.suit = suit;
+        this.rank = rank;
+    }
 
-	@Override
-	public String toString() {
-		return "(" + suit + " " + rank + ")";
-	}
+    @Override
+    public String toString() {
+        return "(" + suit + " " + rank + ")";
+    }
 
 }

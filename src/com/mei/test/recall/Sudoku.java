@@ -1,8 +1,8 @@
 package com.mei.test.recall;
 
 /**
- * Êı¶ÀÎÊÌâ
- * 
+ * æ•°ç‹¬é—®é¢˜
+ *
  * @author mei
  *
  */
@@ -10,85 +10,85 @@ public class Sudoku {
 
 //	static int[][] array = new int[9][9];
 
-	 public static int[][] array = { { 8, 0, 0, 0, 0, 0, 0, 0, 0 },
-	 { 0, 0, 3, 6, 0, 0, 0, 0, 0 }, { 0, 7, 0, 0, 9, 0, 2, 0, 0 },
-	 { 0, 5, 0, 0, 0, 7, 0, 0, 0 }, { 0, 0, 0, 0, 4, 5, 7, 0, 0 },
-	 { 0, 0, 0, 1, 0, 0, 0, 3, 0 }, { 0, 0, 1, 0, 0, 0, 0, 6, 8 },
-	 { 0, 0, 8, 5, 0, 0, 0, 1, 0 }, { 0, 9, 0, 0, 0, 0, 4, 0, 0 } };
+    public static int[][] array = { { 8, 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 3, 6, 0, 0, 0, 0, 0 }, { 0, 7, 0, 0, 9, 0, 2, 0, 0 },
+            { 0, 5, 0, 0, 0, 7, 0, 0, 0 }, { 0, 0, 0, 0, 4, 5, 7, 0, 0 },
+            { 0, 0, 0, 1, 0, 0, 0, 3, 0 }, { 0, 0, 1, 0, 0, 0, 0, 6, 8 },
+            { 0, 0, 8, 5, 0, 0, 0, 1, 0 }, { 0, 9, 0, 0, 0, 0, 4, 0, 0 } };
 
-	public static void sudoku(int row, int colomn) {
-		// Èç¹ûÌîµ½ÁË×îºóÒ»ĞĞµÄ×îÓÒ±ßÁË£¬ËµÃ÷Êı¶ÀÌîÍêÁË£¬¿ÉÒÔ´òÓ¡½á¹û²¢ÍË³öÁË
-		if (row == 8 || colomn == 9) {
-			printResult();
-			return;
-		}
+    public static void sudoku(int row, int colomn) {
+        // å¦‚æœå¡«åˆ°äº†æœ€åä¸€è¡Œçš„æœ€å³è¾¹äº†ï¼Œè¯´æ˜æ•°ç‹¬å¡«å®Œäº†ï¼Œå¯ä»¥æ‰“å°ç»“æœå¹¶é€€å‡ºäº†
+        if (row == 8 || colomn == 9) {
+            printResult();
+            return;
+        }
 
-		// Èç¹ûºá×Å·ÅµÄ¹ı³ÌÖĞ£¬Èç¹ûµ½ÁËÊı×éµÄ×îÓÒ±ß£¬Ó¦¸ÃÌøµ½ÏÂÒ»ĞĞ¼ÌĞø·Å
-		if (colomn == 9) {
-			row++;
-			colomn = 0;
-		}
+        // å¦‚æœæ¨ªç€æ”¾çš„è¿‡ç¨‹ä¸­ï¼Œå¦‚æœåˆ°äº†æ•°ç»„çš„æœ€å³è¾¹ï¼Œåº”è¯¥è·³åˆ°ä¸‹ä¸€è¡Œç»§ç»­æ”¾
+        if (colomn == 9) {
+            row++;
+            colomn = 0;
+        }
 
-		if (array[row][colomn] == 0) {// ¸ÃÎ»ÖÃ»¹Ã»ÓĞÌîÊı
-			for (int k = 1; k <= 9; k++) {
-				if (judge(row, colomn, k)) {// ÅĞ¶Ïµ±Ç°Î»ÖÃÌîµÄÊı×ÖÊÇ·ñºÏ·¨
-					// ¸ÃÖµÃ»ÓĞÌî¹ı
-					array[row][colomn] = k;
-					sudoku(row, colomn + 1);// ºÏ·¨¾ÍÌîÏÂÒ»ÁĞ
-					// Èç¹ûÏÂÒ»ÁĞ·µ»ØÁË£¬ËµÃ÷ÔÚµ±Ç°ÕâÒ»ÁĞÌîÉÏÕâ¸öÊı×ÖkµÄÊ±ºò£¬
-					// ÏÂÒ»ÁĞÕÒ²»µ½Ò»¸öºÏÊÊµÄÊıÌîÁË£¬Ôò´ËÊ±ĞèÒª»ØËİ£¬°Ñµ±Ç°ÕâÒ»ÁĞ»¹Ô­£¬
-					// ´ÓkµÄÎ»ÖÃ¿ªÊ¼£¬´ÓĞÂÌîÊı
-					array[row][colomn] = 0;// ÈÃÇ°Ò»´ÎµÄ¸ñ×Ó»¹Ô­
-				}
-			}
-		} else {// Èç¹ûµ±Ç°Î»ÖÃÌî¹ıÊıÁË£¬ÔòÌîÏÂÒ»ÁĞ
-			sudoku(row, colomn + 1);
-		}
-	}
+        if (array[row][colomn] == 0) {// è¯¥ä½ç½®è¿˜æ²¡æœ‰å¡«æ•°
+            for (int k = 1; k <= 9; k++) {
+                if (judge(row, colomn, k)) {// åˆ¤æ–­å½“å‰ä½ç½®å¡«çš„æ•°å­—æ˜¯å¦åˆæ³•
+                    // è¯¥å€¼æ²¡æœ‰å¡«è¿‡
+                    array[row][colomn] = k;
+                    sudoku(row, colomn + 1);// åˆæ³•å°±å¡«ä¸‹ä¸€åˆ—
+                    // å¦‚æœä¸‹ä¸€åˆ—è¿”å›äº†ï¼Œè¯´æ˜åœ¨å½“å‰è¿™ä¸€åˆ—å¡«ä¸Šè¿™ä¸ªæ•°å­—kçš„æ—¶å€™ï¼Œ
+                    // ä¸‹ä¸€åˆ—æ‰¾ä¸åˆ°ä¸€ä¸ªåˆé€‚çš„æ•°å¡«äº†ï¼Œåˆ™æ­¤æ—¶éœ€è¦å›æº¯ï¼ŒæŠŠå½“å‰è¿™ä¸€åˆ—è¿˜åŸï¼Œ
+                    // ä»kçš„ä½ç½®å¼€å§‹ï¼Œä»æ–°å¡«æ•°
+                    array[row][colomn] = 0;// è®©å‰ä¸€æ¬¡çš„æ ¼å­è¿˜åŸ
+                }
+            }
+        } else {// å¦‚æœå½“å‰ä½ç½®å¡«è¿‡æ•°äº†ï¼Œåˆ™å¡«ä¸‹ä¸€åˆ—
+            sudoku(row, colomn + 1);
+        }
+    }
 
-	/**
-	 * ÅĞ¶ÏÖ¸¶¨µÄÏÂ±ê½«ÒªÌîµÄÊı×ÖÊÇ·ñºÏ·¨
-	 * 
-	 * @param row
-	 * @param colomn
-	 * @return
-	 */
-	private static boolean judge(int row, int colomn, int value) {
+    /**
+     * åˆ¤æ–­æŒ‡å®šçš„ä¸‹æ ‡å°†è¦å¡«çš„æ•°å­—æ˜¯å¦åˆæ³•
+     *
+     * @param row
+     * @param colomn
+     * @return
+     */
+    private static boolean judge(int row, int colomn, int value) {
 
-		for (int i = 0; i < 9; i++) {
-			// array[row][i] == value£¬ÕâÒ»ĞĞÊÇ·ñÒÑ¾­ÌîÁËÕâ¸öÖµ
-			// array[i][colomn]==value£¬ÕâÒ»ÁĞÊÇ·ñÒÑ¾­ÌîÁËÕâ¸öÖµ
-			if (array[row][i] == value || array[i][colomn] == value) {
-				return false;
-			}
-		}
+        for (int i = 0; i < 9; i++) {
+            // array[row][i] == valueï¼Œè¿™ä¸€è¡Œæ˜¯å¦å·²ç»å¡«äº†è¿™ä¸ªå€¼
+            // array[i][colomn]==valueï¼Œè¿™ä¸€åˆ—æ˜¯å¦å·²ç»å¡«äº†è¿™ä¸ªå€¼
+            if (array[row][i] == value || array[i][colomn] == value) {
+                return false;
+            }
+        }
 
-		int tempRow = row / 3;// Ã¿¸öĞ¡¾Å¹¬¸ñµÄÆğµãºá×ø±ê
-		int tempCol = colomn / 3;// Ã¿¸öĞ¡¾Å¹¬¸ñµÄÆğµã×İ×ø±ê
-		// ÅĞ¶Ï×Ô¼ºËùÔÚµÄ¹¬ÀïÃæÓĞÃ»ÓĞÖØ¸´Öµ
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (array[tempRow * 3 + i][tempCol * 3 + j] == value) {
-					return false;
-				}
-			}
-		}
+        int tempRow = row / 3;// æ¯ä¸ªå°ä¹å®«æ ¼çš„èµ·ç‚¹æ¨ªåæ ‡
+        int tempCol = colomn / 3;// æ¯ä¸ªå°ä¹å®«æ ¼çš„èµ·ç‚¹çºµåæ ‡
+        // åˆ¤æ–­è‡ªå·±æ‰€åœ¨çš„å®«é‡Œé¢æœ‰æ²¡æœ‰é‡å¤å€¼
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (array[tempRow * 3 + i][tempCol * 3 + j] == value) {
+                    return false;
+                }
+            }
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	private static void printResult() {
-		for (int i = 0; i < array.length; i++) {
-			for (int j = 0; j < array.length; j++) {
-				System.out.print(array[i][j] + " ");
-			}
-			System.out.println();
-		}
-		System.out.println("------------------");
-	}
+    private static void printResult() {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length; j++) {
+                System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println("------------------");
+    }
 
-	public static void main(String[] args) {
-		sudoku(0, 0);
-	}
+    public static void main(String[] args) {
+        sudoku(0, 0);
+    }
 
 }

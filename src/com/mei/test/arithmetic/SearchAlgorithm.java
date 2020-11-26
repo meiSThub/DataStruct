@@ -1,63 +1,63 @@
 package com.mei.test.arithmetic;
 
 /**
- * ²éÕÒËã·¨
- * 
+ * æŸ¥æ‰¾ç®—æ³•
+ *
  * @author mei
  *
  */
 public class SearchAlgorithm {
 
-	/**
-	 * Ë³Ğò²éÕÒ
-	 * 
-	 * @param array
-	 * @param value
-	 */
-	public static int orderSearch(int[] array, int value) {
-		for (int i = 0; i < array.length; i++) {
-			if (array[i] == value) {
-				return i;
-			}
-		}
-		return -1;
-	}
+    /**
+     * é¡ºåºæŸ¥æ‰¾
+     *
+     * @param array
+     * @param value
+     */
+    public static int orderSearch(int[] array, int value) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
-	/**
-	 * ¶ş·Ö²éÕÒ
-	 * 
-	 * @param array
-	 *            ´ı²éÕÒµÄÊı×é£¬Êı×é±ØĞëÊÇÓĞĞòµÄ
-	 * @param fromIndex
-	 *            ²éÕÒµÄÆğÊ¼Î»ÖÃ
-	 * @param toIndex
-	 *            ²éÕÒµÄ½áÊøÎ»ÖÃ
-	 * @param value
-	 *            Òª²éÕÒµÄÖµ
-	 * @return ·µ»Ø²éÕÒµ½µÄÊı¾İÏÂ±ê
-	 */
-	public static int binarySearch(int[] array, int fromIndex, int toIndex, int value) {
-		int low = fromIndex;
-		int high = toIndex - 1;
-		while (low <= high) {
-			int mid = (low + high) / 2;
-			if (value < array[mid]) {// Ğ¡ÓÚÖĞ¼äÖµ£¬µ½Ç°°ë²¿·Ö²éÕÒ
-				high = mid - 1;
-			} else if (value > array[mid]) {// ´óÓÚÖĞ¼äÖµ£¬µ½ºó°ë²¿·Ö²éÕÒ
-				low = mid + 1;
-			} else {
-				return mid;
-			}
-		}
-		return -(low + 1);
-	}
+    /**
+     * äºŒåˆ†æŸ¥æ‰¾
+     *
+     * @param array
+     *            å¾…æŸ¥æ‰¾çš„æ•°ç»„ï¼Œæ•°ç»„å¿…é¡»æ˜¯æœ‰åºçš„
+     * @param fromIndex
+     *            æŸ¥æ‰¾çš„èµ·å§‹ä½ç½®
+     * @param toIndex
+     *            æŸ¥æ‰¾çš„ç»“æŸä½ç½®
+     * @param value
+     *            è¦æŸ¥æ‰¾çš„å€¼
+     * @return è¿”å›æŸ¥æ‰¾åˆ°çš„æ•°æ®ä¸‹æ ‡
+     */
+    public static int binarySearch(int[] array, int fromIndex, int toIndex, int value) {
+        int low = fromIndex;
+        int high = toIndex - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (value < array[mid]) {// å°äºä¸­é—´å€¼ï¼Œåˆ°å‰åŠéƒ¨åˆ†æŸ¥æ‰¾
+                high = mid - 1;
+            } else if (value > array[mid]) {// å¤§äºä¸­é—´å€¼ï¼Œåˆ°ååŠéƒ¨åˆ†æŸ¥æ‰¾
+                low = mid + 1;
+            } else {
+                return mid;
+            }
+        }
+        return -(low + 1);
+    }
 
-	public static void main(String[] args) {
-		int array[] = { 1, 3, 5, 8, 9, 11, 22, 36, 47, 58 };
-		for (int i = 0; i < array.length; i++) {
-			System.out.println(i + "->"
-					+ binarySearch(array, 0, array.length, array[i]));
-		}
+    public static void main(String[] args) {
+        int array[] = { 1, 3, 5, 8, 9, 11, 22, 36, 47, 58 };
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(i + "->"
+                    + binarySearch(array, 0, array.length, array[i]));
+        }
 
-	}
+    }
 }

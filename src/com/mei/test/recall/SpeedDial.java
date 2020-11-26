@@ -1,68 +1,68 @@
 package com.mei.test.recall;
 
 /**
- * ¾Å¹¬¸ñ
- * 
+ * ä¹å®«æ ¼
+ *
  * @author mei
  *
  */
 public class SpeedDial {
 
-	private int n;
+    private int n;
 
-	/**
-	 * ÌîĞ´¾Í¹¬¸ñ£¬Ê¹Ö®Ã¿ĞĞ¡¢Ã¿ÁĞ¡¢Ğ±¶Ô½ÇµÄÖµºÍ¶¼ÏàµÈ
-	 * 
-	 * @param n
-	 */
-	public static void start(int n) {
-		int[][] array = new int[n][n];
-		int row = 0;
-		int colomn = n / 2;// ´ÓµÚÒ»ĞĞµÄÖĞ¼äÒ»ÁĞ¿ªÊ¼Ìî
-		array[row][colomn] = 1;
-		for (int k = 0; k < n * n; k++) {
-			if (k == 8) {
-				break;
-			}
-			int tempRow = row;
-			int tempColomn = colomn;
-			// ÕÒµ½µ±Ç°½ÚµãµÄÓÒÉÏ½Ç¿Õ¸ñµÄÏÂ±ê£¬
-			row--;
-			if (row < 0) {// Èç¹ûĞĞ³¬³öÁË£¬¾Í´ÓÈ¡×îºóÒ»ĞĞ
-				row = n - 1;
-			}
-			// ÒòÎªÒ»Ö±ÊÇÈ¡µÄÓÒÉÏ½Ç£¬ËùÒÔĞĞÖ»¿ÉÄÜ´Ó0³¬³ö£¬ÁĞÖ»¿ÉÄÜ´Ó×îºóÒ»ÁĞ³¬³ö
-			colomn++;
-			if (colomn >= n) {// Èç¹ûÁĞ³¬³öÁË£¬¾ÍÈ¡µÚÒ»ÁĞ
-				colomn = 0;
-			}
-			// ÓÒÉÏ½ÇµÄÎ»ÖÃÉÏÃ»ÓĞÌîÊı×Ö
-			if (array[row][colomn] == 0) {
-				array[row][colomn] = k + 2;
-			} else {// Èç¹ûÓÒÉÏ½ÇÒÑ¾­ÌîÁËÖµÁË,¾ÍÌî³äÕıÏÂ·½µÄ¿Õ¸ñ
-				// »Øµ½Ç°ÃæµÄÏÂ±ê
-				tempRow++;
-				row = tempRow;
-				colomn = tempColomn;
-				array[tempRow][tempColomn] = k + 2;
-			}
-		}
+    /**
+     * å¡«å†™å°±å®«æ ¼ï¼Œä½¿ä¹‹æ¯è¡Œã€æ¯åˆ—ã€æ–œå¯¹è§’çš„å€¼å’Œéƒ½ç›¸ç­‰
+     *
+     * @param n
+     */
+    public static void start(int n) {
+        int[][] array = new int[n][n];
+        int row = 0;
+        int colomn = n / 2;// ä»ç¬¬ä¸€è¡Œçš„ä¸­é—´ä¸€åˆ—å¼€å§‹å¡«
+        array[row][colomn] = 1;
+        for (int k = 0; k < n * n; k++) {
+            if (k == 8) {
+                break;
+            }
+            int tempRow = row;
+            int tempColomn = colomn;
+            // æ‰¾åˆ°å½“å‰èŠ‚ç‚¹çš„å³ä¸Šè§’ç©ºæ ¼çš„ä¸‹æ ‡ï¼Œ
+            row--;
+            if (row < 0) {// å¦‚æœè¡Œè¶…å‡ºäº†ï¼Œå°±ä»å–æœ€åä¸€è¡Œ
+                row = n - 1;
+            }
+            // å› ä¸ºä¸€ç›´æ˜¯å–çš„å³ä¸Šè§’ï¼Œæ‰€ä»¥è¡Œåªå¯èƒ½ä»0è¶…å‡ºï¼Œåˆ—åªå¯èƒ½ä»æœ€åä¸€åˆ—è¶…å‡º
+            colomn++;
+            if (colomn >= n) {// å¦‚æœåˆ—è¶…å‡ºäº†ï¼Œå°±å–ç¬¬ä¸€åˆ—
+                colomn = 0;
+            }
+            // å³ä¸Šè§’çš„ä½ç½®ä¸Šæ²¡æœ‰å¡«æ•°å­—
+            if (array[row][colomn] == 0) {
+                array[row][colomn] = k + 2;
+            } else {// å¦‚æœå³ä¸Šè§’å·²ç»å¡«äº†å€¼äº†,å°±å¡«å……æ­£ä¸‹æ–¹çš„ç©ºæ ¼
+                // å›åˆ°å‰é¢çš„ä¸‹æ ‡
+                tempRow++;
+                row = tempRow;
+                colomn = tempColomn;
+                array[tempRow][tempColomn] = k + 2;
+            }
+        }
 
-		printArray(array);
-	}
+        printArray(array);
+    }
 
-	private static void printArray(int[][] array) {
+    private static void printArray(int[][] array) {
 
-		for (int i = 0; i < array.length; i++) {
-			for (int j = 0; j < array[i].length; j++) {
-				System.out.print(array[i][j] + " ");
-			}
-			System.out.println();
-		}
-	}
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
 
-	public static void main(String[] args) {
-		start(3);
-	}
+    public static void main(String[] args) {
+        start(3);
+    }
 
 }

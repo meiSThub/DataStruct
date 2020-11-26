@@ -1,11 +1,11 @@
 package com.mei.test.datastruct.list;
 
 /**
- * 手写实现双向链表
+ * 鎵嬪啓瀹炵幇鍙屽悜閾捐〃
  * @author mei
  *
  */
 public class DbLinkList {
 
-	
+
 }

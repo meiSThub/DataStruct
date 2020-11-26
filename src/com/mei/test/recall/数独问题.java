@@ -4,83 +4,83 @@ package com.mei.test.recall;
  * Created by 48608 on 2017/12/20.
  */
 
-public class Êı¶ÀÎÊÌâ {
+public class æ•°ç‹¬é—®é¢˜ {
 
-	public static void main(String[] args) {
-		sudoku();
-	}
+    public static void main(String[] args) {
+        sudoku();
+    }
 
-	public static int[][] result = new int[9][9];
+    public static int[][] result = new int[9][9];
 
-	// public static int[][] result={
-	// {8, 0, 0, 0, 0, 0, 0, 0, 0},
-	// {0, 0, 3, 6, 0, 0, 0, 0, 0},
-	// {0, 7, 0, 0, 9, 0, 2, 0, 0},
-	// {0, 5, 0, 0, 0, 7, 0, 0, 0},
-	// {0, 0, 0, 0, 4, 5, 7, 0, 0},
-	// {0, 0, 0, 1, 0, 0, 0, 3, 0},
-	// {0, 0, 1, 0, 0, 0, 0, 6, 8},
-	// {0, 0, 8, 5, 0, 0, 0, 1, 0},
-	// {0, 9, 0, 0, 0, 0, 4, 0, 0}
-	// };
-	public static void sudoku() {
-		sudoku(0, 0);
-	}
+    // public static int[][] result={
+    // {8, 0, 0, 0, 0, 0, 0, 0, 0},
+    // {0, 0, 3, 6, 0, 0, 0, 0, 0},
+    // {0, 7, 0, 0, 9, 0, 2, 0, 0},
+    // {0, 5, 0, 0, 0, 7, 0, 0, 0},
+    // {0, 0, 0, 0, 4, 5, 7, 0, 0},
+    // {0, 0, 0, 1, 0, 0, 0, 3, 0},
+    // {0, 0, 1, 0, 0, 0, 0, 6, 8},
+    // {0, 0, 8, 5, 0, 0, 0, 1, 0},
+    // {0, 9, 0, 0, 0, 0, 4, 0, 0}
+    // };
+    public static void sudoku() {
+        sudoku(0, 0);
+    }
 
-	public static void sudoku(int i, int j) {
-		// ÍË³öÌõ¼ş
-		if (i == 8 && j == 9) {
-			printResult();
-			return;
-		}
+    public static void sudoku(int i, int j) {
+        // é€€å‡ºæ¡ä»¶
+        if (i == 8 && j == 9) {
+            printResult();
+            return;
+        }
 
-		// ºá×Å·ÅÈëµÄ¹ı³ÌÖĞ£¬Èç¹ûµ½ÁËÊı×éµÄ×îÓÒ±ß£¬Ó¦¸ÃÌøµ½ÏÂÒ»ĞĞ
-		if (j == 9) {
-			i++;
-			j = 0;
-		}
-		if (result[i][j] == 0) {// Èç¹ûÊÇ¿Õ¸ñ×Ó
-			for (int k = 1; k <= 9; k++) {
-				if (judge(i, j, k)) {
-					result[i][j] = k;
-					sudoku(i, j + 1);
-					// ÈÃÇ°Ò»´ÎµÄ¸ñ×Ó»¹Ô­
-					result[i][j] = 0;
-				}
-			}
-		} else {
-			sudoku(i, j + 1);
-		}
-	}
+        // æ¨ªç€æ”¾å…¥çš„è¿‡ç¨‹ä¸­ï¼Œå¦‚æœåˆ°äº†æ•°ç»„çš„æœ€å³è¾¹ï¼Œåº”è¯¥è·³åˆ°ä¸‹ä¸€è¡Œ
+        if (j == 9) {
+            i++;
+            j = 0;
+        }
+        if (result[i][j] == 0) {// å¦‚æœæ˜¯ç©ºæ ¼å­
+            for (int k = 1; k <= 9; k++) {
+                if (judge(i, j, k)) {
+                    result[i][j] = k;
+                    sudoku(i, j + 1);
+                    // è®©å‰ä¸€æ¬¡çš„æ ¼å­è¿˜åŸ
+                    result[i][j] = 0;
+                }
+            }
+        } else {
+            sudoku(i, j + 1);
+        }
+    }
 
-	// ÓÃÀ´ÑéÖ¤µ±Ç°Î»ÖÃÄÜÌîÈëµÄÊı×Ö
-	public static boolean judge(int row, int col, int number) {
-		// ÅĞ¶ÏĞĞºÍÁĞµÄ²»ÖØ¸´
-		for (int i = 0; i < 9; i++) {
-			if (result[row][i] == number || result[i][col] == number) {// Èç¹ûÓĞÖØ¸´¾Í·µ»Øfalse
-				return false;
-			}
-		}
-		// ÅĞ¶Ï×Ô¼ºËùÔÚµÄ¹¬ÀïÃæÓĞÃ»ÓĞÖØ¸´Öµ
-		int tempRow = row / 3;
-		int tempCol = col / 3;
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (result[tempRow * 3 + i][tempCol * 3 + j] == number) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+    // ç”¨æ¥éªŒè¯å½“å‰ä½ç½®èƒ½å¡«å…¥çš„æ•°å­—
+    public static boolean judge(int row, int col, int number) {
+        // åˆ¤æ–­è¡Œå’Œåˆ—çš„ä¸é‡å¤
+        for (int i = 0; i < 9; i++) {
+            if (result[row][i] == number || result[i][col] == number) {// å¦‚æœæœ‰é‡å¤å°±è¿”å›false
+                return false;
+            }
+        }
+        // åˆ¤æ–­è‡ªå·±æ‰€åœ¨çš„å®«é‡Œé¢æœ‰æ²¡æœ‰é‡å¤å€¼
+        int tempRow = row / 3;
+        int tempCol = col / 3;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (result[tempRow * 3 + i][tempCol * 3 + j] == number) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
-	public static void printResult() {
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				System.out.print(result[i][j] + " ");
-			}
-			System.out.println();
-		}
-		System.out.println("-----------------");
-	}
+    public static void printResult() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                System.out.print(result[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println("-----------------");
+    }
 }

@@ -10,177 +10,177 @@ import java.util.Queue;
  */
 
 public class AStar {
-	// ÕÏ°­Îï
-	public final static int BAR = 1;
-	// ¾¶Â·
-	public final static int PATH = 2;
-	// ºáÊúÉÏµÄÒÆ¶¯´ú¼Û
-	public final static int DIRECT_VALUE = 10;
-	// Ğ±ÒÆ¶¯µÄ´ú¼Û
-	public final static int OBLIQUE_VALUE = 14;
-	// ÎªÁË²»ÔÙ×Ô¼ºÔÙÈ¥ÅÅĞò
-	Queue<Node> openList = new PriorityQueue<Node>();
-	List<Node> closeList = new ArrayList<Node>();
+    // éšœç¢ç‰©
+    public final static int BAR = 1;
+    // å¾„è·¯
+    public final static int PATH = 2;
+    // æ¨ªç«–ä¸Šçš„ç§»åŠ¨ä»£ä»·
+    public final static int DIRECT_VALUE = 10;
+    // æ–œç§»åŠ¨çš„ä»£ä»·
+    public final static int OBLIQUE_VALUE = 14;
+    // ä¸ºäº†ä¸å†è‡ªå·±å†å»æ’åº
+    Queue<Node> openList = new PriorityQueue<Node>();
+    List<Node> closeList = new ArrayList<Node>();
 
-	// ¶¨ÒåÒ»Ğ©¸¨ÖúĞÔµÄ·½·¨
+    // å®šä¹‰ä¸€äº›è¾…åŠ©æ€§çš„æ–¹æ³•
 
-	/**
-	 * ¼ÆËãHÖµ£ºÂü¹ş¶Ù·½·¨
-	 */
-	private int calcH(Coord end, Coord coord) {
-		return Math.abs(end.x - coord.x) + Math.abs(end.y - coord.y);
-	}
+    /**
+     * è®¡ç®—Hå€¼ï¼šæ›¼å“ˆé¡¿æ–¹æ³•
+     */
+    private int calcH(Coord end, Coord coord) {
+        return Math.abs(end.x - coord.x) + Math.abs(end.y - coord.y);
+    }
 
-	/**
-	 * ÅĞ¶Ï½áµãÊÇ·ñÊÇ×îÖÕµã
-	 */
-	private boolean isEndNode(Coord end, Coord coord) {
-		return coord != null && end.equals(coord);
-	}
+    /**
+     * åˆ¤æ–­ç»“ç‚¹æ˜¯å¦æ˜¯æœ€ç»ˆç‚¹
+     */
+    private boolean isEndNode(Coord end, Coord coord) {
+        return coord != null && end.equals(coord);
+    }
 
-	/**
-	 * ¿ªÊ¼Ëã·¨µÄÂß¼­
-	 */
-	public void start(MapInfo mapInfo) {
-		// ÏÈÅĞ¶ÏµØÍ¼ÊÇ·ñ´æÔÚ
-		if (mapInfo == null)
-			return;
-		// Çå¿ÕÉÏÒ»´Î²Ù×÷µÄ½á¹û
-		openList.clear();
-		closeList.clear();
-		// ¿ªÊ¼ËÑË÷
-		// 1.°Ñ¿ªÊ¼½Úµã¼ÓÈëµ½open±í
-		openList.add(mapInfo.start);
-		// 2.Ä¿±êÅĞ¶¨
-		moveNodes(mapInfo);
-	}
+    /**
+     * å¼€å§‹ç®—æ³•çš„é€»è¾‘
+     */
+    public void start(MapInfo mapInfo) {
+        // å…ˆåˆ¤æ–­åœ°å›¾æ˜¯å¦å­˜åœ¨
+        if (mapInfo == null)
+            return;
+        // æ¸…ç©ºä¸Šä¸€æ¬¡æ“ä½œçš„ç»“æœ
+        openList.clear();
+        closeList.clear();
+        // å¼€å§‹æœç´¢
+        // 1.æŠŠå¼€å§‹èŠ‚ç‚¹åŠ å…¥åˆ°openè¡¨
+        openList.add(mapInfo.start);
+        // 2.ç›®æ ‡åˆ¤å®š
+        moveNodes(mapInfo);
+    }
 
-	/**
-	 * ÓÃÀ´ÒÆ¶¯µ±Ç°½áµã
-	 */
-	private void moveNodes(MapInfo mapInfo) {
-		while (!openList.isEmpty()) {
-			if (isCoordInClose(mapInfo.end.coord)) {// Èç¹ûÖÕµã½øÈëÁËclose±íÊ¾½áÊø
-				// ±íÊ¾ÒÑ¾­Íê³É£¬¿ÉÒÔ»­³ö½á¹û
-				drawPath(mapInfo.map, mapInfo.end);
-				// »­½á¹û
-				break;
-			}
-			// °ÑopenÖĞµÄµÚÒ»¸ö½ÚµãÈ¡³öÀ´·Åµ½closeÖĞ
-			Node current = openList.poll();
-			closeList.add(current);
-			// 3.¿ªÊ¼´Ócurrent¿ªÊ¼µÄµØ·½ÕÒÁÚ½üµÄÄÜ×ßµÄ½Úµã
-			addNeighborNodeInOpen(mapInfo, current);
-		}
-	}
+    /**
+     * ç”¨æ¥ç§»åŠ¨å½“å‰ç»“ç‚¹
+     */
+    private void moveNodes(MapInfo mapInfo) {
+        while (!openList.isEmpty()) {
+            if (isCoordInClose(mapInfo.end.coord)) {// å¦‚æœç»ˆç‚¹è¿›å…¥äº†closeè¡¨ç¤ºç»“æŸ
+                // è¡¨ç¤ºå·²ç»å®Œæˆï¼Œå¯ä»¥ç”»å‡ºç»“æœ
+                drawPath(mapInfo.map, mapInfo.end);
+                // ç”»ç»“æœ
+                break;
+            }
+            // æŠŠopenä¸­çš„ç¬¬ä¸€ä¸ªèŠ‚ç‚¹å–å‡ºæ¥æ”¾åˆ°closeä¸­
+            Node current = openList.poll();
+            closeList.add(current);
+            // 3.å¼€å§‹ä»currentå¼€å§‹çš„åœ°æ–¹æ‰¾é‚»è¿‘çš„èƒ½èµ°çš„èŠ‚ç‚¹
+            addNeighborNodeInOpen(mapInfo, current);
+        }
+    }
 
-	private void addNeighborNodeInOpen(MapInfo mapInfo, Node current, int x,
-			int y, int value) {
-		if (canAddNodeToOpen(mapInfo, x, y)) {// ÅĞ¶Ïµ±Ç°½ÚµãÊÇ·ñ¿ÉÒÔÌí¼Ó£¨²»ÔÚclose,Ò²²»ÊÇÇ½£©
-			Node end = mapInfo.end;
-			Coord coord = new Coord(x, y);
-			int g = current.g + value;// ¼ÆËãµ±Ç°µãµ½¿ªÊ¼µãµÄ¾àÀë
-			Node child = findNodeInOpen(coord);// ²éÕÒµ±Ç°µãÊÇ·ñÔÚopenÖĞ
-			if (child == null) {// ²»ÔÚopenÖĞ
-				// Õâ¸öifÖĞ±íÊ¾¶¼ÊÇ´ÓÀ´Ã»ËÑ¹ıµÄÂ·
-				int h = calcH(end.coord, coord);// ¼ÆËãHÖµ
-				if (isEndNode(end.coord, coord)) {
-					child = end;
-					child.parent = current;
-					child.g = g;
-					child.h = h;
-				} else {
-					child = new Node(coord, current, g, h);
-				}
-				openList.add(child);
-			} else if (child.g > g) {// Èç¹ûÔÚopenÖĞ(Ö»ĞèÒªÅĞ¶ÏÁ½¸ö½ÚµãµÄGÖµ ,ÓÃĞ¡µÄ»»ÁË
-				child.g = g;
-				child.parent = current;
-				openList.add(child);
-			}
-		}
-	}
+    private void addNeighborNodeInOpen(MapInfo mapInfo, Node current, int x,
+            int y, int value) {
+        if (canAddNodeToOpen(mapInfo, x, y)) {// åˆ¤æ–­å½“å‰èŠ‚ç‚¹æ˜¯å¦å¯ä»¥æ·»åŠ ï¼ˆä¸åœ¨close,ä¹Ÿä¸æ˜¯å¢™ï¼‰
+            Node end = mapInfo.end;
+            Coord coord = new Coord(x, y);
+            int g = current.g + value;// è®¡ç®—å½“å‰ç‚¹åˆ°å¼€å§‹ç‚¹çš„è·ç¦»
+            Node child = findNodeInOpen(coord);// æŸ¥æ‰¾å½“å‰ç‚¹æ˜¯å¦åœ¨openä¸­
+            if (child == null) {// ä¸åœ¨openä¸­
+                // è¿™ä¸ªifä¸­è¡¨ç¤ºéƒ½æ˜¯ä»æ¥æ²¡æœè¿‡çš„è·¯
+                int h = calcH(end.coord, coord);// è®¡ç®—Hå€¼
+                if (isEndNode(end.coord, coord)) {
+                    child = end;
+                    child.parent = current;
+                    child.g = g;
+                    child.h = h;
+                } else {
+                    child = new Node(coord, current, g, h);
+                }
+                openList.add(child);
+            } else if (child.g > g) {// å¦‚æœåœ¨openä¸­(åªéœ€è¦åˆ¤æ–­ä¸¤ä¸ªèŠ‚ç‚¹çš„Gå€¼ ,ç”¨å°çš„æ¢äº†
+                child.g = g;
+                child.parent = current;
+                openList.add(child);
+            }
+        }
+    }
 
-	/**
-	 * Ìí¼ÓÖÜÎ§ËùÓĞÄÜ¼ÓÈëµÄµã
-	 */
-	private void addNeighborNodeInOpen(MapInfo mapInfo, Node current) {
-		int x = current.coord.x;
-		int y = current.coord.y;
-		// ½øĞĞ°Ë´Î²Ù×÷
-		// ¶¨ÒåÒ»¸ö·½·¨À´½øĞĞÒ»¸ö½ÚµãµÄÅĞ¶Ï
-		// ×ó
-		addNeighborNodeInOpen(mapInfo, current, x - 1, y, DIRECT_VALUE);
-		// ÉÏ
-		addNeighborNodeInOpen(mapInfo, current, x, y - 1, DIRECT_VALUE);
-		// ÓÒ
-		addNeighborNodeInOpen(mapInfo, current, x + 1, y, DIRECT_VALUE);
-		// ÏÂ
-		addNeighborNodeInOpen(mapInfo, current, x, y + 1, DIRECT_VALUE);
-		// ×óÉÏ
-		addNeighborNodeInOpen(mapInfo, current, x - 1, y - 1, OBLIQUE_VALUE);
-		// ÓÒÉÏ
-		addNeighborNodeInOpen(mapInfo, current, x + 1, y - 1, OBLIQUE_VALUE);
-		// ×óÏÂ
-		addNeighborNodeInOpen(mapInfo, current, x - 1, y + 1, OBLIQUE_VALUE);
-		// ÓÒÏÂ
-		addNeighborNodeInOpen(mapInfo, current, x + 1, y + 1, OBLIQUE_VALUE);
+    /**
+     * æ·»åŠ å‘¨å›´æ‰€æœ‰èƒ½åŠ å…¥çš„ç‚¹
+     */
+    private void addNeighborNodeInOpen(MapInfo mapInfo, Node current) {
+        int x = current.coord.x;
+        int y = current.coord.y;
+        // è¿›è¡Œå…«æ¬¡æ“ä½œ
+        // å®šä¹‰ä¸€ä¸ªæ–¹æ³•æ¥è¿›è¡Œä¸€ä¸ªèŠ‚ç‚¹çš„åˆ¤æ–­
+        // å·¦
+        addNeighborNodeInOpen(mapInfo, current, x - 1, y, DIRECT_VALUE);
+        // ä¸Š
+        addNeighborNodeInOpen(mapInfo, current, x, y - 1, DIRECT_VALUE);
+        // å³
+        addNeighborNodeInOpen(mapInfo, current, x + 1, y, DIRECT_VALUE);
+        // ä¸‹
+        addNeighborNodeInOpen(mapInfo, current, x, y + 1, DIRECT_VALUE);
+        // å·¦ä¸Š
+        addNeighborNodeInOpen(mapInfo, current, x - 1, y - 1, OBLIQUE_VALUE);
+        // å³ä¸Š
+        addNeighborNodeInOpen(mapInfo, current, x + 1, y - 1, OBLIQUE_VALUE);
+        // å·¦ä¸‹
+        addNeighborNodeInOpen(mapInfo, current, x - 1, y + 1, OBLIQUE_VALUE);
+        // å³ä¸‹
+        addNeighborNodeInOpen(mapInfo, current, x + 1, y + 1, OBLIQUE_VALUE);
 
-	}
+    }
 
-	private Node findNodeInOpen(Coord coord) {
-		if (coord == null || openList.isEmpty())
-			return null;
-		for (Node node : openList) {
-			if (node.coord.equals(coord)) {
-				return node;
-			}
-		}
-		return null;
-	}
+    private Node findNodeInOpen(Coord coord) {
+        if (coord == null || openList.isEmpty())
+            return null;
+        for (Node node : openList) {
+            if (node.coord.equals(coord)) {
+                return node;
+            }
+        }
+        return null;
+    }
 
-	private boolean canAddNodeToOpen(MapInfo mapInfo, int x, int y) {
-		// ÊÇ·ñÔÚµØÍ¼ÖĞ
-		if (x < 0 || x >= mapInfo.width || y < 0 || y >= mapInfo.hight) {
-			return false;
-		}
-		// ÅĞ¶ÏÊÇ·ñÊÇ²»¿ÉÍ¨¹ıµÄÎ»ÖÃ
-		if (mapInfo.map[y][x] == BAR) {
-			return false;
-		}
-		// ÅĞ¶ÏÊÇ·ñÔÚclose±íÖĞ
-		if (isCoordInClose(x, y)) {
-			return false;
-		}
-		return true;
-	}
+    private boolean canAddNodeToOpen(MapInfo mapInfo, int x, int y) {
+        // æ˜¯å¦åœ¨åœ°å›¾ä¸­
+        if (x < 0 || x >= mapInfo.width || y < 0 || y >= mapInfo.hight) {
+            return false;
+        }
+        // åˆ¤æ–­æ˜¯å¦æ˜¯ä¸å¯é€šè¿‡çš„ä½ç½®
+        if (mapInfo.map[y][x] == BAR) {
+            return false;
+        }
+        // åˆ¤æ–­æ˜¯å¦åœ¨closeè¡¨ä¸­
+        if (isCoordInClose(x, y)) {
+            return false;
+        }
+        return true;
+    }
 
-	/**
-	 * ÅĞ¶Ï×ø±êÊÇ·ñÔÚcloseÁĞ¶ÓÖĞ
-	 */
-	private boolean isCoordInClose(Coord coord) {
-		return coord != null && isCoordInClose(coord.x, coord.y);
-	}
+    /**
+     * åˆ¤æ–­åæ ‡æ˜¯å¦åœ¨closeåˆ—é˜Ÿä¸­
+     */
+    private boolean isCoordInClose(Coord coord) {
+        return coord != null && isCoordInClose(coord.x, coord.y);
+    }
 
-	private boolean isCoordInClose(int x, int y) {
-		if (closeList.isEmpty())
-			return false;
-		for (Node node : closeList) {
-			if (node.coord.x == x && node.coord.y == y) {
-				return true;
-			}
-		}
-		return false;
-	}
+    private boolean isCoordInClose(int x, int y) {
+        if (closeList.isEmpty())
+            return false;
+        for (Node node : closeList) {
+            if (node.coord.x == x && node.coord.y == y) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	private void drawPath(int[][] map, Node end) {
-		if (end == null || map == null)
-			return;
-		System.out.println("×î¶Ì³¤¶ÈÎª:" + end.g);
-		while (end != null) {
-			Coord c = end.coord;
-			map[c.y][c.x] = PATH;
-			end = end.parent;
-		}
-	}
+    private void drawPath(int[][] map, Node end) {
+        if (end == null || map == null)
+            return;
+        System.out.println("æœ€çŸ­é•¿åº¦ä¸º:" + end.g);
+        while (end != null) {
+            Coord c = end.coord;
+            map[c.y][c.x] = PATH;
+            end = end.parent;
+        }
+    }
 }

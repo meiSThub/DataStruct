@@ -3,12 +3,12 @@ package com.mei.test.encrypt;
 
 
 /**
- * Sha1¼ÓÃÜËã·¨
+ * Sha1åŠ å¯†ç®—æ³•
  * Created by 48608 on 2017/12/22.
  */
 
 public class SHA {
-    //1.×¼±¸¹¤×÷
+    //1.å‡†å¤‡å·¥ä½œ
     public static final int[] abcde = {
             0x67452301,
             0xEFCDAB89,
@@ -16,14 +16,14 @@ public class SHA {
             0x10325476,
             0xC3D2E1F0
     };
-    //ÕªÒªÊı¾İ´æ´¢ÓÃµÄÊı×é£¨´æ·ÅÃÜÎÄµÄ)  20¸ö×Ö½Ú*8=160£»
+    //æ‘˜è¦æ•°æ®å­˜å‚¨ç”¨çš„æ•°ç»„ï¼ˆå­˜æ”¾å¯†æ–‡çš„)  20ä¸ªå­—èŠ‚*8=160ï¼›
     public static int[] h=new int[5];
-    //¼ÆËã¹ı³ÌÖĞĞèÒªÓÃµ½µÄÁÙÊ±Êı¾İ´æ´¢Êı×é
+    //è®¡ç®—è¿‡ç¨‹ä¸­éœ€è¦ç”¨åˆ°çš„ä¸´æ—¶æ•°æ®å­˜å‚¨æ•°ç»„
     public static int[] m=new int[80];
 
-    //¶¨Òå¸¨Öú·½·¨
+    //å®šä¹‰è¾…åŠ©æ–¹æ³•
 
-    //½«×Ö·û×ª»»ÎªÊ®Áù½øÖÆ×Ö·û´®
+    //å°†å­—ç¬¦è½¬æ¢ä¸ºåå…­è¿›åˆ¶å­—ç¬¦ä¸²
     public static String byteToHexString(byte b){//97
         char[] digit={'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
         char[] ob=new char[2];
@@ -32,7 +32,7 @@ public class SHA {
         String s=new String(ob);//"97"
         return s;
     }
-    //½«×Ö½ÚÊı×é×ª»»ÎªÊ®Áù½øÖÆ×Ö·û´®
+    //å°†å­—èŠ‚æ•°ç»„è½¬æ¢ä¸ºåå…­è¿›åˆ¶å­—ç¬¦ä¸²
     public static String byteArrayToHexString(byte[] byteArray){
         String strDigest="";
         for(int i=0;i<byteArray.length;i++){
@@ -41,20 +41,20 @@ public class SHA {
         return strDigest;
     }
 
-    //4×Ö½ÚÊı×é×ª»»Îªint  i¸öbyteºÏ³Éµ½byteData[]ÖĞ
-	//byteDataÊÇÒ»¸ö³¤¶ÈÎª4µÄ×Ö½ÚÊı×é
-	//¶øÒ»¸öintÖµÔÚjavaÖĞ¾ÍÊÇ4¸ö×Ö½Ú£¬ËùÒÔ¿ÉÒÔÓÃÒ»¸öint´æ´¢Ò»¸ö³¤¶ÈÎª4×Ö½ÚÊı×é
-	//byteData[i]&0xff)<<24  ¾ÍÊÇ°ÑÏÂ±êÎªiµÄ×Ö½Ú´æ·Åµ½intµÄ×î¸ßÎ»£¬¼´×î×ó±ßµÄ1¸ö×Ö½Ú
+    //4å­—èŠ‚æ•°ç»„è½¬æ¢ä¸ºint  iä¸ªbyteåˆæˆåˆ°byteData[]ä¸­
+    //byteDataæ˜¯ä¸€ä¸ªé•¿åº¦ä¸º4çš„å­—èŠ‚æ•°ç»„
+    //è€Œä¸€ä¸ªintå€¼åœ¨javaä¸­å°±æ˜¯4ä¸ªå­—èŠ‚ï¼Œæ‰€ä»¥å¯ä»¥ç”¨ä¸€ä¸ªintå­˜å‚¨ä¸€ä¸ªé•¿åº¦ä¸º4å­—èŠ‚æ•°ç»„
+    //byteData[i]&0xff)<<24  å°±æ˜¯æŠŠä¸‹æ ‡ä¸ºiçš„å­—èŠ‚å­˜æ”¾åˆ°intçš„æœ€é«˜ä½ï¼Œå³æœ€å·¦è¾¹çš„1ä¸ªå­—èŠ‚
     public static int byteArrayToInt(byte[] byteData,int i){
         //0a 0b 0c 0d  24       16       8       0
         //         0a000000  or  0b0000  or   0c00  or   0d
         //            0a0b0c0d
-		//°Ñ×Ö½ÚÊı×éÖĞµÄÃ¿¸ö×Ö½Ú·Åµ½intµÄ¶ÔÓ¦µÄ×Ö½ÚÎ»ÖÃÉÏ£¬ÔÚºÏ²¢³ÉÒ»¸öint
+        //æŠŠå­—èŠ‚æ•°ç»„ä¸­çš„æ¯ä¸ªå­—èŠ‚æ”¾åˆ°intçš„å¯¹åº”çš„å­—èŠ‚ä½ç½®ä¸Šï¼Œåœ¨åˆå¹¶æˆä¸€ä¸ªint
         return ((byteData[i]&0xff)<<24)|((byteData[i+1]&0xff)<<16)|((byteData[i+2]&0xff)<<8)|(byteData[i+3]&0xff);
     }
-	
-	//Õâ¸ö·½·¨¾Í¸úÉÏÃæµÄ·½·¨×öÏà·´µÄ²Ù×÷£¬¼´°ÑÒ»¸öintÖµ°´ÕÕ×Ö½Ú²ğ·Ö³ÉÒ»¸ö³¤¶ÈÎª4µÄ×Ö½ÚÊı×é
-    //ÕûÊı×ª»»Îª4×Ö½ÚÊı×é   int·Ö½âµ½byteÊı×éÖĞ
+
+    //è¿™ä¸ªæ–¹æ³•å°±è·Ÿä¸Šé¢çš„æ–¹æ³•åšç›¸åçš„æ“ä½œï¼Œå³æŠŠä¸€ä¸ªintå€¼æŒ‰ç…§å­—èŠ‚æ‹†åˆ†æˆä¸€ä¸ªé•¿åº¦ä¸º4çš„å­—èŠ‚æ•°ç»„
+    //æ•´æ•°è½¬æ¢ä¸º4å­—èŠ‚æ•°ç»„   intåˆ†è§£åˆ°byteæ•°ç»„ä¸­
     public static void intToByteArray(int intValue,byte[] byteData,int i){
         byteData[i]=(byte)((intValue>>>24)&0xff); //0xff== 1111 1111
         byteData[i+1]=(byte)((intValue>>>16)&0xff);
@@ -68,7 +68,7 @@ public class SHA {
     Ft(b,c,d) (b^c^d)               (60 <= t <= 79)
      */
     public static int f1(int x,int y,int z){
-        return (x&y)|(~x&z);//¶ÔÓ¦ÉÏÃæµÄ¹«Ê½
+        return (x&y)|(~x&z);//å¯¹åº”ä¸Šé¢çš„å…¬å¼
     }
     public static int f2(int x,int y,int z){
         return x^y^z;
@@ -80,39 +80,39 @@ public class SHA {
         return x^y^z;
     }
 
-    //¿ªÊ¼Âß¼­
-    //½øĞĞ¶ÔÔ­Êı¾İµÄ²¹Î»
+    //å¼€å§‹é€»è¾‘
+    //è¿›è¡Œå¯¹åŸæ•°æ®çš„è¡¥ä½
     public static byte[] byteArrayFormatData(byte[] byteData){
-        //²¹0µÄ¸öÊı
+        //è¡¥0çš„ä¸ªæ•°
         int fill=0;
-        //²¹Î»ºóµÄ×ÜÎ»Êı,64µÄ±¶Êı
+        //è¡¥ä½åçš„æ€»ä½æ•°,64çš„å€æ•°
         int size=0;
-        //Ô­Êı¾İµÄ³¤¶È
+        //åŸæ•°æ®çš„é•¿åº¦
         int srcLength=byteData.length;
-        //¶Ô64ÇóÓàÊı   n%512      56Êı¾İ    8³¤¶È   53
+        //å¯¹64æ±‚ä½™æ•°   n%512      56æ•°æ®    8é•¿åº¦   53
         int m=srcLength%64;
         if(m<56){
             fill=55-m;
-            size=srcLength-m+64;//Êı¾İÖ»ÓĞÒ»¿é
+            size=srcLength-m+64;//æ•°æ®åªæœ‰ä¸€å—
         }else if(m==56){
             fill=63;
             size=srcLength+8+64;
-        }else{ 
+        }else{
             fill=63-m+56;//   58    60+56  116-64=52   55-52=3
-            size=(srcLength+64)-m+64; 
+            size=(srcLength+64)-m+64;
         }
-        //²¹Î»ºóÉú³ÉµÄĞÂÊı×éµÄÄÚÈİ
+        //è¡¥ä½åç”Ÿæˆçš„æ–°æ•°ç»„çš„å†…å®¹
         byte[] newbyte=new byte[size];
         System.arraycopy(byteData,0,newbyte,0,srcLength);
 
-        //²¹1
+        //è¡¥1
         int startLocation=srcLength;
         newbyte[startLocation++]=(byte)0x80;
-        //²¹0
+        //è¡¥0
         for(int i=0;i<fill;i++){
             newbyte[startLocation++]=(byte)0x00;
         }
-        //´¦Àí³¤¶ÈµÄÎ»ÖÃ  ×Ö½Ú*8=?Î»   512-468=64Î»£¬ÓÃÀ´´æ·Å³¤¶È
+        //å¤„ç†é•¿åº¦çš„ä½ç½®  å­—èŠ‚*8=?ä½   512-468=64ä½ï¼Œç”¨æ¥å­˜æ”¾é•¿åº¦
         long n=(long)srcLength*8;
         byte h8=(byte)(n&0xff);
         byte h7=(byte)((n>>8)&0xff);
@@ -133,45 +133,45 @@ public class SHA {
 
         return newbyte;
     }
-    //¿ªÊ¼¼ÆËãÃÜÎÄ ËãÕªÒª
+    //å¼€å§‹è®¡ç®—å¯†æ–‡ ç®—æ‘˜è¦
     public static int process_input_bytes(byte[] byteData){
         System.arraycopy(abcde,0,h,0,abcde.length);
-        //¸ñÊ½»¯Êı¾İ
+        //æ ¼å¼åŒ–æ•°æ®
         byte[] newbyte=byteArrayFormatData(byteData);
-        //¼ÆËãÓĞ¶àÉÙ¸ö´ó¿é
+        //è®¡ç®—æœ‰å¤šå°‘ä¸ªå¤§å—
         int mCount=newbyte.length/64;
-        //Ñ­»·¼ÆËãÃ¿Ò»¿éµÄÄÚÈİ
+        //å¾ªç¯è®¡ç®—æ¯ä¸€å—çš„å†…å®¹
         for(int pos=0;pos<mCount;pos++){
-            //¶ÔÃ¿Ò»¿é¶¼½øĞĞ¼ÓÃÜ¼ÆËã
-            //(1). ½« Mi ·Ö³É 16 ¸ö×Ö W0, W1, ... , W15,  W0 ÊÇ×î×ó±ßµÄ×Ö
+            //å¯¹æ¯ä¸€å—éƒ½è¿›è¡ŒåŠ å¯†è®¡ç®—
+            //(1). å°† Mi åˆ†æˆ 16 ä¸ªå­— W0, W1, ... , W15,  W0 æ˜¯æœ€å·¦è¾¹çš„å­—
             for(int i=0;i<16;i++){
                 m[i]=byteArrayToInt(newbyte,(pos*64)+(i*4));
             }
-            //¼ÆËã
+            //è®¡ç®—
             encrypt();
         }
 
         return 20;
     }
-    //nÊÇÒ»¸öÕûÊıÇÒ0<=n<=32¡£Sn(X) = (X<<n)OR(X>>(32-n))
+    //næ˜¯ä¸€ä¸ªæ•´æ•°ä¸”0<=n<=32ã€‚Sn(X) = (X<<n)OR(X>>(32-n))
     public static int s(int x,int i){
         return (x<<i)|x>>>(32-i);
     }
     public static void encrypt(){
-        //(2). ¶ÔÓÚ t = 16 µ½ 79 Áî
+        //(2). å¯¹äº t = 16 åˆ° 79 ä»¤
         // Wt = S1(Wt-3 XOR Wt-8 XOR Wt- 14 XOR Wt-16).
         for(int t=16;t<=79;t++){
             m[t]=s(m[t-3]^m[t-8]^m[t-14]^m[t-16],1);
         }
-        //3.Áî A = H0, B = H1, C = H2, D = H3, E = H4.
+        //3.ä»¤ A = H0, B = H1, C = H2, D = H3, E = H4.
         int[] tempabcde=new int[5];
         for(int i=0;i<tempabcde.length;i++){
             tempabcde[i]=h[i];
         }
-        //4.¶ÔÓÚ t = 0 µ½ 79£¬Ö´ĞĞÏÂÃæµÄÑ­»·
+        //4.å¯¹äº t = 0 åˆ° 79ï¼Œæ‰§è¡Œä¸‹é¢çš„å¾ªç¯
         //TEMP = S5(A) + ft(B,C,D) + E + Wt + Kt;
         //E = D; D = C; C = S30(B); B = A; A = TEMP;
-        //Ò»¹²ÓĞ80´Î²Ù×÷
+        //ä¸€å…±æœ‰80æ¬¡æ“ä½œ
         //Kt = 0x5A827999  (0 <= t <= 19)
 //        Kt = 0x6ED9EBA1 (20 <= t <= 39)
 //        Kt = 0x8F1BBCDC (40 <= t <= 59)
@@ -220,18 +220,18 @@ public class SHA {
             tempabcde[1]=tempabcde[0];
             tempabcde[0]=temp;
         }
-        //5.Áî H0 = H0 + A, H1 = H1 + B, H2 = H2 + C, H3 = H3 + D, H4 = H4 + E.
+        //5.ä»¤ H0 = H0 + A, H1 = H1 + B, H2 = H2 + C, H3 = H3 + D, H4 = H4 + E.
         for(int i=0;i<tempabcde.length;i++){
             h[i]=h[i]+tempabcde[i];
         }
-        //Íê³ÉÁËÒ»´Î²Ù×÷
-        //Çå³ıÖ®Ç°µÄÄÚÈİ£¬¿ªÊ¼ÏÂÒ»¸ö¿éµÄ¼ÆËã
+        //å®Œæˆäº†ä¸€æ¬¡æ“ä½œ
+        //æ¸…é™¤ä¹‹å‰çš„å†…å®¹ï¼Œå¼€å§‹ä¸‹ä¸€ä¸ªå—çš„è®¡ç®—
         for(int i=0;i<m.length;i++){
             m[i]=0;
         }
 
     }
-    //°ÑÒÑ¾­ËãºÃµÄÊı¾İÌá¹©Ò»¸ö½Ó¿Ú½øĞĞÊäÈëºÍÊä³ö
+    //æŠŠå·²ç»ç®—å¥½çš„æ•°æ®æä¾›ä¸€ä¸ªæ¥å£è¿›è¡Œè¾“å…¥å’Œè¾“å‡º
     public static byte[] getDigestOfBytes(byte[] byteData){
         process_input_bytes(byteData);
         byte[] digest=new byte[20];
@@ -248,9 +248,9 @@ public class SHA {
         //ad93ae3d06a9114b3cbb33b6433ad546f0aa9f42
         //378940973d2f16265b7a7f2a78a253c45d953b0b
         String param="jeTt";
-        System.out.println("¼ÓÃÜÇ°:"+param);
+        System.out.println("åŠ å¯†å‰:"+param);
         String digest=getDigestOfString(param.getBytes());
-        System.out.println("¼ÓÃÜºóµÄ½á¹û£º"+digest);
+        System.out.println("åŠ å¯†åçš„ç»“æœï¼š"+digest);
     }
 }
 

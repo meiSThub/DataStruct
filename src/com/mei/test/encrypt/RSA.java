@@ -17,111 +17,111 @@ import Decoder.BASE64Decoder;
 import Decoder.BASE64Encoder;
 
 /**
- * RSA¼ÓÃÜÓë½âÃÜËã·¨
- * 
+ * RSAåŠ å¯†ä¸è§£å¯†ç®—æ³•
+ *
  * @author mei
  *
  */
 public class RSA {
 
-	// Ö¸¶¨¼ÓÃÜËã·¨µÄÃû×Ö
-	public static String ALGORITHM = "RSA";
-	// Ö¸¶¨keyµÄÎ»Êı NµÄÎ»Êı
-	public static int KEYSIZE = 512;
-	// Ö¸¶¨¹«Ô¿´æ·ÅµÄÎÄ¼ş
-	public static String PUBLIC_KEY_FILE = "public_key.dat";
-	// Ö¸¶¨Ë½Ô¿´æ·ÅµÄÎÄ¼ş
-	public static String PRIVATE_KEY_FILE = "private_key.dat";
+    // æŒ‡å®šåŠ å¯†ç®—æ³•çš„åå­—
+    public static String ALGORITHM = "RSA";
+    // æŒ‡å®škeyçš„ä½æ•° Nçš„ä½æ•°
+    public static int KEYSIZE = 512;
+    // æŒ‡å®šå…¬é’¥å­˜æ”¾çš„æ–‡ä»¶
+    public static String PUBLIC_KEY_FILE = "public_key.dat";
+    // æŒ‡å®šç§é’¥å­˜æ”¾çš„æ–‡ä»¶
+    public static String PRIVATE_KEY_FILE = "private_key.dat";
 
-	/**
-	 * Éú³ÉÃÜÔ¿¶Ô ¹«(e,n) Ë½(d,n)
-	 */
-	public static void generateKeyPair() throws Exception {
-		// ĞèÒªÒ»¸ö°²È«µÄËæ»úÊıÔ´
-		SecureRandom sr = new SecureRandom();
-		// ĞèÒªÒ»¸öKeyPairGenerator¶ÔÏó
-		KeyPairGenerator kpg = KeyPairGenerator.getInstance(ALGORITHM);
-		// ¿ªÊ¼²úÉú1ºÍ2²½ÖĞÓÃµ½µÄËùÓĞÊı¾İ
-		// Î»Êı±ØĞëÊÇ64µÄ±¶Êı£¬ÔÚ512--65536Ö®¼ä Ä¬ÈÏ1024
-		kpg.initialize(KEYSIZE, sr);
+    /**
+     * ç”Ÿæˆå¯†é’¥å¯¹ å…¬(e,n) ç§(d,n)
+     */
+    public static void generateKeyPair() throws Exception {
+        // éœ€è¦ä¸€ä¸ªå®‰å…¨çš„éšæœºæ•°æº
+        SecureRandom sr = new SecureRandom();
+        // éœ€è¦ä¸€ä¸ªKeyPairGeneratorå¯¹è±¡
+        KeyPairGenerator kpg = KeyPairGenerator.getInstance(ALGORITHM);
+        // å¼€å§‹äº§ç”Ÿ1å’Œ2æ­¥ä¸­ç”¨åˆ°çš„æ‰€æœ‰æ•°æ®
+        // ä½æ•°å¿…é¡»æ˜¯64çš„å€æ•°ï¼Œåœ¨512--65536ä¹‹é—´ é»˜è®¤1024
+        kpg.initialize(KEYSIZE, sr);
 
-		// Éú³ÉÃÜÔ¿¶Ô
-		KeyPair keyPair = kpg.generateKeyPair();
-		// µÃµ½¹«Ô¿
-		Key publicKey = keyPair.getPublic();
-		// µÃµ½Ë½Ô¿
-		Key privateKey = keyPair.getPrivate();
-		// ¿ÉÒÔ°Ñ¹«Ô¿ºÍË½Ô¿¶¼Ğ´ÈëÎÄ¼ş±£´æÏÂÀ´
-		ObjectOutputStream oos1 = new ObjectOutputStream(new FileOutputStream(
-				PUBLIC_KEY_FILE));
-		ObjectOutputStream oos2 = new ObjectOutputStream(new FileOutputStream(
-				PRIVATE_KEY_FILE));
+        // ç”Ÿæˆå¯†é’¥å¯¹
+        KeyPair keyPair = kpg.generateKeyPair();
+        // å¾—åˆ°å…¬é’¥
+        Key publicKey = keyPair.getPublic();
+        // å¾—åˆ°ç§é’¥
+        Key privateKey = keyPair.getPrivate();
+        // å¯ä»¥æŠŠå…¬é’¥å’Œç§é’¥éƒ½å†™å…¥æ–‡ä»¶ä¿å­˜ä¸‹æ¥
+        ObjectOutputStream oos1 = new ObjectOutputStream(new FileOutputStream(
+                PUBLIC_KEY_FILE));
+        ObjectOutputStream oos2 = new ObjectOutputStream(new FileOutputStream(
+                PRIVATE_KEY_FILE));
 
-		oos1.writeObject(publicKey);
-		oos2.writeObject(privateKey);
+        oos1.writeObject(publicKey);
+        oos2.writeObject(privateKey);
 
-		oos1.close();
-		oos2.close();
-	}
+        oos1.close();
+        oos2.close();
+    }
 
-	/**
-	 * ¼ÓÃÜ
-	 * 
-	 * @param source
-	 * @return
-	 * @throws Exception
-	 */
-	public static String encrypt(String source) throws Exception {
-		generateKeyPair();
-		// È¡³ö¹«Ô¿
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(
-				PUBLIC_KEY_FILE));
-		Key key = (Key) ois.readObject();
-		ois.close();
-		// ¿ªÊ¼ÓÃ¹«Ô¿¼ÓÃÜ
+    /**
+     * åŠ å¯†
+     *
+     * @param source
+     * @return
+     * @throws Exception
+     */
+    public static String encrypt(String source) throws Exception {
+        generateKeyPair();
+        // å–å‡ºå…¬é’¥
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(
+                PUBLIC_KEY_FILE));
+        Key key = (Key) ois.readObject();
+        ois.close();
+        // å¼€å§‹ç”¨å…¬é’¥åŠ å¯†
 
-		Cipher cipher = Cipher.getInstance(ALGORITHM);
-		cipher.init(Cipher.ENCRYPT_MODE, key);
+        Cipher cipher = Cipher.getInstance(ALGORITHM);
+        cipher.init(Cipher.ENCRYPT_MODE, key);
 
-		byte[] b = source.getBytes();
-		byte[] b1 = cipher.doFinal(b);
-		// ÓÃbase64½øĞĞ±àÂë ×Ö·ûºÍbyte×ª»»µÄÒ»ÖÖ·½Ê½
-		BASE64Encoder encoder = new BASE64Encoder();
-		return encoder.encode(b1);// Í¨¹ıbase64°Ñ×Ö½ÚÊı×é×ª»»³É×Ö·û´®
-	}
+        byte[] b = source.getBytes();
+        byte[] b1 = cipher.doFinal(b);
+        // ç”¨base64è¿›è¡Œç¼–ç  å­—ç¬¦å’Œbyteè½¬æ¢çš„ä¸€ç§æ–¹å¼
+        BASE64Encoder encoder = new BASE64Encoder();
+        return encoder.encode(b1);// é€šè¿‡base64æŠŠå­—èŠ‚æ•°ç»„è½¬æ¢æˆå­—ç¬¦ä¸²
+    }
 
-	public static String decrypt(String cryptText) throws Exception {
-		// ¶ÁÎÄ¼ş
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(
-				PRIVATE_KEY_FILE));
+    public static String decrypt(String cryptText) throws Exception {
+        // è¯»æ–‡ä»¶
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(
+                PRIVATE_KEY_FILE));
 
-		Key key = (Key) ois.readObject();
+        Key key = (Key) ois.readObject();
 
-		// Í¨¹ıË½Ô¿½âÃÜ
-		Cipher cipher = Cipher.getInstance(ALGORITHM);
-		cipher.init(Cipher.DECRYPT_MODE, key);
+        // é€šè¿‡ç§é’¥è§£å¯†
+        Cipher cipher = Cipher.getInstance(ALGORITHM);
+        cipher.init(Cipher.DECRYPT_MODE, key);
 
-		BASE64Decoder decoder = new BASE64Decoder();
-		byte[] b1 = decoder.decodeBuffer(cryptText);// ÏÈÓÃbase64°ÑÃÜÎÄ½âÃÜ³É×Ö½ÚÁ÷
+        BASE64Decoder decoder = new BASE64Decoder();
+        byte[] b1 = decoder.decodeBuffer(cryptText);// å…ˆç”¨base64æŠŠå¯†æ–‡è§£å¯†æˆå­—èŠ‚æµ
 
-		byte[] b = cipher.doFinal(b1);// Í¨¹ıRSA°ÑÖ¸¶¨µÄ×Ö½ÚÁ÷½âÃÜ³ÉÃ÷ÎÄ
-		return new String(b);
-	}
+        byte[] b = cipher.doFinal(b1);// é€šè¿‡RSAæŠŠæŒ‡å®šçš„å­—èŠ‚æµè§£å¯†æˆæ˜æ–‡
+        return new String(b);
+    }
 
-	public static void main(String[] args) {
-		try {
-			// ¿Í»§¶ËÓÃ¹«Ô¿¼ÓÃÜ
-			String str = "hello world!";
-			String text = encrypt(str);
-			System.out.println("ÃÜÎÄ:" + text);
+    public static void main(String[] args) {
+        try {
+            // å®¢æˆ·ç«¯ç”¨å…¬é’¥åŠ å¯†
+            String str = "hello world!";
+            String text = encrypt(str);
+            System.out.println("å¯†æ–‡:" + text);
 
-			// µ½ÁË·şÎñ¶Ë½øĞĞÓÃË½Ô¿½âÃÜ
-			String target = decrypt(text);
-			System.out.println("Ã÷ÎÄ:" + target);
+            // åˆ°äº†æœåŠ¡ç«¯è¿›è¡Œç”¨ç§é’¥è§£å¯†
+            String target = decrypt(text);
+            System.out.println("æ˜æ–‡:" + target);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

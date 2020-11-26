@@ -1,200 +1,200 @@
 package com.mei.test.datastruct.list;
 
 /**
- * ÊÖĞ´µ¥Á´±í:ÊµÏÖÏûÏ¢¶ÓÁĞ
- * 
+ * æ‰‹å†™å•é“¾è¡¨:å®ç°æ¶ˆæ¯é˜Ÿåˆ—
+ *
  * @author mei
  *
  */
 public class MessageQueue<E> {
 
-	private Node<E> first;
-	private Node<E> last;
-	private int size;// ÔªËØ¸öÊı
+    private Node<E> first;
+    private Node<E> last;
+    private int size;// å…ƒç´ ä¸ªæ•°
 
-	/**
-	 * Ôö¼ÓÊı¾İ
-	 * 
-	 * @param e
-	 */
-	public void add(E e) {
-		linkLast(e);
-	}
+    /**
+     * å¢åŠ æ•°æ®
+     *
+     * @param e
+     */
+    public void add(E e) {
+        linkLast(e);
+    }
 
-	/**
-	 * ÔÚÖ¸¶¨Î»ÖÃÔö¼Ó½Úµã
-	 * 
-	 * @param index
-	 * @param e
-	 */
-	public void add(int index, E e) {
-		if (index < 0 || index > size) {
-			throw new IndexOutOfBoundsException();
-		}
-		if (index == size) {
-			linkLast(e);
-		} else {
-			Node<E> target = node(index);
-			Node<E> pre = node(--index);
-			Node<E> node = new Node<E>(e, target);
-			if (pre == null) {// ËµÃ÷ÊÇÔÚÍ·²¿²åÈëÔªËØ,¼´index==0
-				first = node;
-			} else {
-				pre.next = node;
-			}
-			size++;
-		}
-	}
+    /**
+     * åœ¨æŒ‡å®šä½ç½®å¢åŠ èŠ‚ç‚¹
+     *
+     * @param index
+     * @param e
+     */
+    public void add(int index, E e) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (index == size) {
+            linkLast(e);
+        } else {
+            Node<E> target = node(index);
+            Node<E> pre = node(--index);
+            Node<E> node = new Node<E>(e, target);
+            if (pre == null) {// è¯´æ˜æ˜¯åœ¨å¤´éƒ¨æ’å…¥å…ƒç´ ,å³index==0
+                first = node;
+            } else {
+                pre.next = node;
+            }
+            size++;
+        }
+    }
 
-	private void linkLast(E e) {// ÔÚÁ´±í×îºóÌí¼ÓÒ»¸öÔªËØ
-		Node<E> node = new Node<E>(e, null);
-		if (last == null) {
-			first = node;
-		} else {
-			last.next = node;
-		}
-		last = node;
-		size++;
-	}
+    private void linkLast(E e) {// åœ¨é“¾è¡¨æœ€åæ·»åŠ ä¸€ä¸ªå…ƒç´ 
+        Node<E> node = new Node<E>(e, null);
+        if (last == null) {
+            first = node;
+        } else {
+            last.next = node;
+        }
+        last = node;
+        size++;
+    }
 
-	/**
-	 * ²éÑ¯Ö¸¶¨Î»ÖÃµÄ½ÚµãÊı¾İ
-	 * 
-	 * @param index
-	 * @return
-	 */
-	public E get(int index) {
-		if (index < 0 || index >= size) {
-			throw new IndexOutOfBoundsException();
-		}
-		return node(index).value;
-	}
+    /**
+     * æŸ¥è¯¢æŒ‡å®šä½ç½®çš„èŠ‚ç‚¹æ•°æ®
+     *
+     * @param index
+     * @return
+     */
+    public E get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        return node(index).value;
+    }
 
-	/**
-	 * É¾³ıÖ¸¶¨Î»ÖÃµÄÊı¾İ
-	 * 
-	 * @param index
-	 */
-	public void remove(int index) {
-		if (index < 0 || index >= size) {
-			throw new IndexOutOfBoundsException();
-		}
-		unlinkNode(index);
-	}
+    /**
+     * åˆ é™¤æŒ‡å®šä½ç½®çš„æ•°æ®
+     *
+     * @param index
+     */
+    public void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        unlinkNode(index);
+    }
 
-	/**
-	 * °ÑËùÓĞÔªËØÄæÖÃ
-	 */
-	public void reverse() {
-		if (size == 0) {
-			return;
-		}
-		Node<E> target = null;
-		Node<E> pre = null;
-		for (int i = size - 1; i >= 0; i--) {
-			target = node(i);
-			pre = node(i - 1);
-			if (pre != null) {
-				target.next = pre;
-			}
-		}
-		Node<E> temp = first;
-		first = last;
-		last = temp;
-	}
+    /**
+     * æŠŠæ‰€æœ‰å…ƒç´ é€†ç½®
+     */
+    public void reverse() {
+        if (size == 0) {
+            return;
+        }
+        Node<E> target = null;
+        Node<E> pre = null;
+        for (int i = size - 1; i >= 0; i--) {
+            target = node(i);
+            pre = node(i - 1);
+            if (pre != null) {
+                target.next = pre;
+            }
+        }
+        Node<E> temp = first;
+        first = last;
+        last = temp;
+    }
 
-	/**
-	 * ÄæÖÃËã·¨·½Ê½¶ş
-	 */
-	public void reverse2() {
-		Node<E> pre = null;
-		Node<E> next = first;
-		Node<E> temp = null;
-		while (next != null) {
-			temp = next.next;
-			next.next = pre;
-			pre = next;
-			next = temp;
-		}
-		last = first;
-		first = pre;
+    /**
+     * é€†ç½®ç®—æ³•æ–¹å¼äºŒ
+     */
+    public void reverse2() {
+        Node<E> pre = null;
+        Node<E> next = first;
+        Node<E> temp = null;
+        while (next != null) {
+            temp = next.next;
+            next.next = pre;
+            pre = next;
+            next = temp;
+        }
+        last = first;
+        first = pre;
 
-	}
+    }
 
-	/**
-	 * ½Ó´¥¹ØÁª¹ØÏµ£¬¼´É¾³ı½Úµã
-	 * 
-	 * @param index
-	 */
-	private void unlinkNode(int index) {
-		Node<E> target = node(index);
-		Node<E> pre = node(--index);
-		if (pre == null) {// ËµÃ÷É¾³ıµÄÊÇµÚÒ»¸ö½Úµã,¼´index==0
-			first = target.next;
-			target.next = null;
-		} else {
-			if (target.next == null) {// ËµÃ÷É¾³ıµÄÊÇ×îºóÒ»¸ö½Úµã
-				pre.next = null;
-				last = pre;
-			} else {
-				pre.next = target.next;
-			}
-		}
-		size--;
-	}
+    /**
+     * æ¥è§¦å…³è”å…³ç³»ï¼Œå³åˆ é™¤èŠ‚ç‚¹
+     *
+     * @param index
+     */
+    private void unlinkNode(int index) {
+        Node<E> target = node(index);
+        Node<E> pre = node(--index);
+        if (pre == null) {// è¯´æ˜åˆ é™¤çš„æ˜¯ç¬¬ä¸€ä¸ªèŠ‚ç‚¹,å³index==0
+            first = target.next;
+            target.next = null;
+        } else {
+            if (target.next == null) {// è¯´æ˜åˆ é™¤çš„æ˜¯æœ€åä¸€ä¸ªèŠ‚ç‚¹
+                pre.next = null;
+                last = pre;
+            } else {
+                pre.next = target.next;
+            }
+        }
+        size--;
+    }
 
-	private Node<E> node(int index) {// ÕÒµ½¶ÔÓ¦Î»ÖÃµÄ½Úµã
-		if (index < 0 || index >= size) {
-			return null;
-		}
-		Node<E> target = first;
-		if (index == size - 1) {
-			return last;
-		}
-		for (int i = 0; i < index; i++) {
-			target = target.next;
-		}
-		return target;
-	}
+    private Node<E> node(int index) {// æ‰¾åˆ°å¯¹åº”ä½ç½®çš„èŠ‚ç‚¹
+        if (index < 0 || index >= size) {
+            return null;
+        }
+        Node<E> target = first;
+        if (index == size - 1) {
+            return last;
+        }
+        for (int i = 0; i < index; i++) {
+            target = target.next;
+        }
+        return target;
+    }
 
-	public static class Node<E> {
-		E value;
-		Node<E> next;
+    public static class Node<E> {
+        E value;
+        Node<E> next;
 
-		public Node(E value, Node<E> next) {
-			super();
-			this.value = value;
-			this.next = next;
-		}
+        public Node(E value, Node<E> next) {
+            super();
+            this.value = value;
+            this.next = next;
+        }
 
-	}
+    }
 
-	public static void main(String[] args) {
-		MessageQueue<Integer> queue = new MessageQueue<Integer>();
-		queue.add(1);
-		queue.add(1, 2);
-		queue.add(0, 0);
-		queue.add(3);
-		queue.add(4);
-		// queue.remove(4);
+    public static void main(String[] args) {
+        MessageQueue<Integer> queue = new MessageQueue<Integer>();
+        queue.add(1);
+        queue.add(1, 2);
+        queue.add(0, 0);
+        queue.add(3);
+        queue.add(4);
+        // queue.remove(4);
 
-		System.out.println("ÄæÖÃÖ®Ç°");
-		for (int i = 0; i < queue.size; i++) {
-			System.out.print("->" + queue.get(i));
-		}
+        System.out.println("é€†ç½®ä¹‹å‰");
+        for (int i = 0; i < queue.size; i++) {
+            System.out.print("->" + queue.get(i));
+        }
 
-		queue.reverse2();
-		System.out.println("\nÄæÖÃÖ®ºó");
-		for (int i = 0; i < queue.size; i++) {
-			System.out.print("->" + queue.get(i));
-		}
+        queue.reverse2();
+        System.out.println("\né€†ç½®ä¹‹å");
+        for (int i = 0; i < queue.size; i++) {
+            System.out.print("->" + queue.get(i));
+        }
 
-		queue.add(1, 9);
-		queue.remove(2);
-		System.out.println("\nÄæÖÃÖ®ºóÔÚ²åÈëÒ»¸öÔªËØ");
-		for (int i = 0; i < queue.size; i++) {
-			System.out.print("->" + queue.get(i));
-		}
-	}
+        queue.add(1, 9);
+        queue.remove(2);
+        System.out.println("\né€†ç½®ä¹‹ååœ¨æ’å…¥ä¸€ä¸ªå…ƒç´ ");
+        for (int i = 0; i < queue.size; i++) {
+            System.out.print("->" + queue.get(i));
+        }
+    }
 
 }

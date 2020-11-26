@@ -1,128 +1,128 @@
 package com.mei.test.datastruct.list;
 
 /**
- * ÊÖĞ´LinkedList
+ * æ‰‹å†™LinkedList
  * @author mei
  *
  * @param <E>
  */
 public class LinkedList<E> {
 
-	private Node<E> first;
-	private Node<E> last;
-	private int size;
+    private Node<E> first;
+    private Node<E> last;
+    private int size;
 
-	public static class Node<E> {
-		E item;
-		Node<E> next;
-		Node<E> pre;
+    public static class Node<E> {
+        E item;
+        Node<E> next;
+        Node<E> pre;
 
-		public Node(Node<E> next, E item, Node<E> pre) {
-			super();
-			this.next = next;
-			this.item = item;
-			this.pre = pre;
-		}
-	}
+        public Node(Node<E> next, E item, Node<E> pre) {
+            super();
+            this.next = next;
+            this.item = item;
+            this.pre = pre;
+        }
+    }
 
-	public void add(E e) {
-		linkLast(e);
-	}
+    public void add(E e) {
+        linkLast(e);
+    }
 
-	public void add(int index, E e) {
-		if (index < 0 || index > size) {
-			return;
-		}
-		if (index == size) {
-			linkLast(e);
-		} else {
-			Node<E> target = node(index);// Èç¹ûindex=0,target.pre==nullµÄ
-			Node<E> node = new Node<E>(target, e, target.pre);
-			if (target.pre == null) {
-				first = node;
-			} else {
-				target.pre.next = node;
-			}
-			target.pre = node;
-			size++;
-		}
-	}
+    public void add(int index, E e) {
+        if (index < 0 || index > size) {
+            return;
+        }
+        if (index == size) {
+            linkLast(e);
+        } else {
+            Node<E> target = node(index);// å¦‚æœindex=0,target.pre==nullçš„
+            Node<E> node = new Node<E>(target, e, target.pre);
+            if (target.pre == null) {
+                first = node;
+            } else {
+                target.pre.next = node;
+            }
+            target.pre = node;
+            size++;
+        }
+    }
 
-	private void linkLast(E e) {
-		Node<E> newNode = new Node<E>(null, e, last);
-		Node<E> l = last;
-		last = newNode;
-		if (l == null) {
-			first = newNode;
-		} else {
-			l.next = newNode;
-		}
-		size++;
-	}
+    private void linkLast(E e) {
+        Node<E> newNode = new Node<E>(null, e, last);
+        Node<E> l = last;
+        last = newNode;
+        if (l == null) {
+            first = newNode;
+        } else {
+            l.next = newNode;
+        }
+        size++;
+    }
 
-	public E get(int index) {
-		if (index < 0 || index > size) {
-			return null;
-		}
-		return node(index).item;
-	}
+    public E get(int index) {
+        if (index < 0 || index > size) {
+            return null;
+        }
+        return node(index).item;
+    }
 
-	public void remove(int index) {
-		Node<E> node = node(index);
-		unlinkNode(node);
-		size--;
-	}
+    public void remove(int index) {
+        Node<E> node = node(index);
+        unlinkNode(node);
+        size--;
+    }
 
-	private void unlinkNode(Node<E> p) {
-		// p.pre.next=p.next;
-		// p.next.pre=p.pre;
-		if (p == null) {
-			throw new IndexOutOfBoundsException();
-		}
-		Node<E> pre = p.pre;
-		Node<E> next = p.next;
-		if (pre == null) {// ËµÃ÷É¾³ıµÄÊÇµÚÒ»¸ö½Úµã
-			first = p.next;
-		} else {// É¾³ıµÄ²»ÊÇµÚÒ»¸ö½Úµã
-			pre.next = p.next;
-		}
+    private void unlinkNode(Node<E> p) {
+        // p.pre.next=p.next;
+        // p.next.pre=p.pre;
+        if (p == null) {
+            throw new IndexOutOfBoundsException();
+        }
+        Node<E> pre = p.pre;
+        Node<E> next = p.next;
+        if (pre == null) {// è¯´æ˜åˆ é™¤çš„æ˜¯ç¬¬ä¸€ä¸ªèŠ‚ç‚¹
+            first = p.next;
+        } else {// åˆ é™¤çš„ä¸æ˜¯ç¬¬ä¸€ä¸ªèŠ‚ç‚¹
+            pre.next = p.next;
+        }
 
-		if (next == null) {// ËµÃ÷É¾³ıµÄÊÇ×îºóÒ»¸ö½Úµã
-			last = p.pre;
-		} else {// É¾³ıµÄ²»ÊÇ×îºóÒ»¸ö½Úµã
-			next.pre = p.pre;
-		}
-	}
+        if (next == null) {// è¯´æ˜åˆ é™¤çš„æ˜¯æœ€åä¸€ä¸ªèŠ‚ç‚¹
+            last = p.pre;
+        } else {// åˆ é™¤çš„ä¸æ˜¯æœ€åä¸€ä¸ªèŠ‚ç‚¹
+            next.pre = p.pre;
+        }
+    }
 
-	private Node<E> node(int index) {
-		if (index < 0 || index > size) {
-			return null;
-		}
-		if (index < (size >> 1)) {// index´¦ÓÚÇ°°ë²¿·Ö
-			Node<E> node = first;
-			for (int i = 0; i < index; i++) {
-				node = node.next;
-			}
-			return node;
-		} else {// index ´¦ÓÚºó°ë²¿·Ö
-			Node<E> node = last;
-			for (int i = size - 1; i > index; i--) {
-				node = node.pre;
-			}
-			return node;
-		}
-	}
+    private Node<E> node(int index) {
+        if (index < 0 || index > size) {
+            return null;
+        }
+        if (index < (size >> 1)) {// indexå¤„äºå‰åŠéƒ¨åˆ†
+            Node<E> node = first;
+            for (int i = 0; i < index; i++) {
+                node = node.next;
+            }
+            return node;
+        } else {// index å¤„äºååŠéƒ¨åˆ†
+            Node<E> node = last;
+            for (int i = size - 1; i > index; i--) {
+                node = node.pre;
+            }
+            return node;
+        }
+    }
 
-	public static void main(String[] args) {
-		LinkedList<Integer> list = new LinkedList<Integer>();
-		list.add(0, 4);
-		list.add(1);
-		list.add(6);
-		list.add(0, 8);
-		list.remove(4);
-		for (int i = 0; i < list.size; i++) {
-			System.out.println(i + ":" + list.get(i));
-		}
-	}
+    public static void main(String[] args) {
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        list.add(0, 4);
+        list.add(1);
+        list.add(6);
+        list.add(0, 8);
+        list.remove(4);
+        for (int i = 0; i < list.size; i++) {
+            System.out.println(i + ":" + list.get(i));
+        }
+    }
 
 }

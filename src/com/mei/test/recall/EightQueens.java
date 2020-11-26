@@ -1,65 +1,65 @@
 package com.mei.test.recall;
 
 /**
- * °Ë»ÊºóÎÊÌâ
- * 
- * ÔÚ8*8µÄÆåÅÌÖĞ£¬ÌîÈë8¸ö»Êºó£¬Ê¹Ö®±Ë´ËÖ®¼ä²»ÔÙÍ¬Ò»ĞĞ£¬Í¬Ò»ÁĞ£¬Í¬Ò»¶Ô½ÇÏßÉÏ
- * 
+ * å…«çš‡åé—®é¢˜
+ *
+ * åœ¨8*8çš„æ£‹ç›˜ä¸­ï¼Œå¡«å…¥8ä¸ªçš‡åï¼Œä½¿ä¹‹å½¼æ­¤ä¹‹é—´ä¸å†åŒä¸€è¡Œï¼ŒåŒä¸€åˆ—ï¼ŒåŒä¸€å¯¹è§’çº¿ä¸Š
+ *
  * @author mei
  *
  */
 public class EightQueens {
 
-	// ÓÃÓÚ´æ·ÅÃ¿¸ö»Êºó´æ·ÅµÄÎ»ÖÃ£¬Èç queensLocations[0]=4£¬±íÊ¾ÔÚµÚÒ»ĞĞµÚ5ÁĞÓĞÒ»¸ö»Êºó
-	static int array[] = new int[8];
+    // ç”¨äºå­˜æ”¾æ¯ä¸ªçš‡åå­˜æ”¾çš„ä½ç½®ï¼Œå¦‚ queensLocations[0]=4ï¼Œè¡¨ç¤ºåœ¨ç¬¬ä¸€è¡Œç¬¬5åˆ—æœ‰ä¸€ä¸ªçš‡å
+    static int array[] = new int[8];
 
-	/**
-	 * ¿ªÊ¼Ëã·¨
-	 */
-	public static void eightQuees(int row) {
-		 //Èç¹ûÓĞ½á¹ûÖ±½ÓÍË³ö
-		if (row == 8) {// ³¬³ö
-			printResult();
-			return;
-		}
-		//¿ªÊ¼´ÓµÚÒ»ÁĞµ½×îºóÒ»ÁĞÒ»¸ö¸ö·ÅÈë
-		for (int colomn = 0; colomn < 8; colomn++) {
-			array[row] = colomn;
-			if (judge(row)) {// Èç¹ûÌîÈëµÄÔªËØÓëÇ°ÃæÌîÈëµÄ²»ÔÚÍ¬Ò»ÁĞ»òÕßÍ¬Ò»¶Ô½ÇÏßÉÏ
-				eightQuees(row + 1);// ÌîÏÂÒ»ĞĞ
-			}
-		}
-	}
+    /**
+     * å¼€å§‹ç®—æ³•
+     */
+    public static void eightQuees(int row) {
+        //å¦‚æœæœ‰ç»“æœç›´æ¥é€€å‡º
+        if (row == 8) {// è¶…å‡º
+            printResult();
+            return;
+        }
+        //å¼€å§‹ä»ç¬¬ä¸€åˆ—åˆ°æœ€åä¸€åˆ—ä¸€ä¸ªä¸ªæ”¾å…¥
+        for (int colomn = 0; colomn < 8; colomn++) {
+            array[row] = colomn;
+            if (judge(row)) {// å¦‚æœå¡«å…¥çš„å…ƒç´ ä¸å‰é¢å¡«å…¥çš„ä¸åœ¨åŒä¸€åˆ—æˆ–è€…åŒä¸€å¯¹è§’çº¿ä¸Š
+                eightQuees(row + 1);// å¡«ä¸‹ä¸€è¡Œ
+            }
+        }
+    }
 
-	private static boolean judge(int row) {
-		// Ñ­»·ÅĞ¶ÏÓëÇ°ÃæµÄ[0,row)ĞĞÊÇ·ñÓĞ³åÍ»
-		for (int i = 0; i < row; i++) {
-			// queensLocations[row] == queensLocations[i]
-			// µ±Ç°ĞĞ·ÅÈëµÄ»ÊºóÓëÆäËûµÄĞĞµÄ»ÊºóÊÇ·ñÔÚÍ¬Ò»ÁĞÉÏ
+    private static boolean judge(int row) {
+        // å¾ªç¯åˆ¤æ–­ä¸å‰é¢çš„[0,row)è¡Œæ˜¯å¦æœ‰å†²çª
+        for (int i = 0; i < row; i++) {
+            // queensLocations[row] == queensLocations[i]
+            // å½“å‰è¡Œæ”¾å…¥çš„çš‡åä¸å…¶ä»–çš„è¡Œçš„çš‡åæ˜¯å¦åœ¨åŒä¸€åˆ—ä¸Š
 
-			// ¶şÎ¬Êı×éµÄ¹æÂÉ£¬Èç¹ûµÚnĞĞÓëµÚiĞĞµÄÔªËØµÄĞĞºÅÏà¼õµÄ¾ø¶ÔÖµÓëÆäÁĞºÅÏà¼õµÄ¾ø¶ÔÖµÏàµÈ£¬
-			// Ôò¶ÔÓ¦µÄÔªËØÔÚÍ¬Ò»¶Ô½ÇÏßÉÏ
-			// Math.abs(row - i) == Math.abs(array[row] - array[i])
-			if (array[row] == array[i]// Í¬Ò»ÁĞ
-					|| Math.abs(row - i) == Math.abs(array[row] - array[i])) {// Í¬Ò»ĞĞ
-				return false;
-			}
-		}
-		return true;
-	}
+            // äºŒç»´æ•°ç»„çš„è§„å¾‹ï¼Œå¦‚æœç¬¬nè¡Œä¸ç¬¬iè¡Œçš„å…ƒç´ çš„è¡Œå·ç›¸å‡çš„ç»å¯¹å€¼ä¸å…¶åˆ—å·ç›¸å‡çš„ç»å¯¹å€¼ç›¸ç­‰ï¼Œ
+            // åˆ™å¯¹åº”çš„å…ƒç´ åœ¨åŒä¸€å¯¹è§’çº¿ä¸Š
+            // Math.abs(row - i) == Math.abs(array[row] - array[i])
+            if (array[row] == array[i]// åŒä¸€åˆ—
+                    || Math.abs(row - i) == Math.abs(array[row] - array[i])) {// åŒä¸€è¡Œ
+                return false;
+            }
+        }
+        return true;
+    }
 
-	static int index = 1;
+    static int index = 1;
 
-	public static void printResult() {
-		System.out.println("ÖÖÀà£º" + index++);
-		for (int i = 0; i < array.length; i++) {
-			System.out.print(array[i] + " ");
-		}
-		System.out.println();
-	}
+    public static void printResult() {
+        System.out.println("ç§ç±»ï¼š" + index++);
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
+        }
+        System.out.println();
+    }
 
-	public static void main(String[] args) {
-		eightQuees(0);// ´ÓµÚ0ĞĞ¿ªÊ¼ÌîÈë
-	}
+    public static void main(String[] args) {
+        eightQuees(0);// ä»ç¬¬0è¡Œå¼€å§‹å¡«å…¥
+    }
 
 }

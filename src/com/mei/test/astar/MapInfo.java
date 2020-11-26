@@ -1,29 +1,29 @@
 package com.mei.test.astar;
 
 /**
- * µØÍ¼Àà
- * 
+ * åœ°å›¾ç±»
+ *
  * @author mei
  *
  */
 public class MapInfo {
 
-	public int[][] map;// ¶ş½×¾ØÕó£¬ÓÃÓÚ±íÊ¾Ò»¸öµØÍ¼
-	public Node start;// Ñ°Â·µÄÆğµã
-	public Node end;// Ñ°Â·µÄÖÕµã
+    public int[][] map;// äºŒé˜¶çŸ©é˜µï¼Œç”¨äºè¡¨ç¤ºä¸€ä¸ªåœ°å›¾
+    public Node start;// å¯»è·¯çš„èµ·ç‚¹
+    public Node end;// å¯»è·¯çš„ç»ˆç‚¹
 
-	public int width;// µØÍ¼µÄ¿í¶È
-	public int height;// µØÍ¼µÄ¸ß¶È
-	
-	public MapInfo(int[][] map, int width, int height, Node start, Node end) {
-		super();
-		this.map = map;
-		this.width = width;
-		this.height = height;
-		this.start = start;
-		this.end = end;
-	}
-	
-	
+    public int width;// åœ°å›¾çš„å®½åº¦
+    public int height;// åœ°å›¾çš„é«˜åº¦
+
+    public MapInfo(int[][] map, int width, int height, Node start, Node end) {
+        super();
+        this.map = map;
+        this.width = width;
+        this.height = height;
+        this.start = start;
+        this.end = end;
+    }
+
+
 
 }

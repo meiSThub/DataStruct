@@ -5,256 +5,256 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * ÓÃÕ»ÊµÏÖÄæ²¨À¼±í´ïÊ½
+ * ç”¨æ ˆå®ç°é€†æ³¢å…°è¡¨è¾¾å¼
  */
 public class ReversePolishNotation {
-	
-	/**
-	 * °ÑÖĞ×º±í´ïÊ½×ª»¯³Éºó×º±í´ïÊ½
-	 * @param str
-	 */
-	public char[] getEndExpression(String str){
-		if (str==null||"".equals(str)) {
-			return null;
-		}
-		char[] source=str.toCharArray();
-		int index=0;
-		char[] res=new char[source.length];
-		LinkedList<Character> stack=new LinkedList<Character>();
-		stack.push('#');
-		for (int i = 0; i < source.length; i++) {
-			if (isNum(source[i])) {//ĞÂ×Ö·ûÊÇ·ñÊÇÊı×Ö
-				res[index++]=source[i];
-			}else if (isOperator(source[i])||source[i]=='('||source[i]==')'||source[i]=='#') {
-				Character top=stack.peek();
-				if (isBigger(top, source[i])) {//ĞÂ×Ö·ûµÄÓÅÏÈ¼¶±ÈÕ»¶¥×Ö·ûÓÅÏÈ¼¶¸ß£¬Ôò½øÕ»
-					stack.push(source[i]);
-				}else {//Õ»¶¥×Ö·ûÓÅÏÈ¼¶¸ß£¬Ôò³öÕ»
-					while (!stack.isEmpty()) {
-						top=stack.peek();//É¾³ıÕ»¶¥×Ö·û
-						if (isOperator(top)) {//Èç¹ûÕ»¶¥×Ö·ûÊÇÔËËã·û
-							res[index++]=top;
-							stack.removeFirst();
-						}else if (source[i]==')'&&top=='(') {
-							stack.removeFirst();
-							break;
-						}else if (isBigger(top, source[i])) {
-							stack.push(source[i]);
-							break;
-						}else if (top=='#') {
-							break;
-						}
-					}
-				}
-			} 
-		}
-		
-		while (!stack.isEmpty()) {
-			Character top=stack.pop();
-			if (top!='#') {
-				res[index++]=top;
-			}
-		}
-		//´òÓ¡½á¹û
-		System.out.println("ºó×º±í´ïÊ½Îª£º");
-		for (int i = 0; i < res.length; i++) {
-			System.out.print(" "+res[i]);
-		}
-		return res;
-	}
-	
-	/**
-	 * ÊÇ·ñÊÇÊı×Ö
-	 * @param c
-	 * @return
-	 */
-	public boolean isNum(char c){
-		Pattern pattern=Pattern.compile("[0-9]*");
-		Matcher isNum=pattern.matcher(String.valueOf(c));
-		if (!isNum.matches()) {
-			return false;
-		}
-		return true;
-	}
-	
-	/**
-	 * ÊÇ·ñÊÇÔËËã·û
-	 * @param c
-	 * @return
-	 */
-	private boolean isOperator(char c){
-		switch (c) {
-		case '+':
-		case '-':
-		case '*':
-		case '/':
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * ĞÂµÄ×Ö·ûµÄÓÅÏÈ¼¶ÊÇ·ñ±ÈÕ»¶¥×Ö·ûµÄÓÅÏÈ¼¶¸ß
-	 * @param top		Õ»¶¥×Ö·û
-	 * @param newChar	ĞÂ×Ö·û
-	 * @return
-	 */
-	private boolean isBigger(char top,char newChar) {
-		boolean isBigger=false;
-		switch (top) {
-		case '+':
-			switch (newChar) {
-			case '+':
-			case '-':
-			case ')':
-			case '#':
-				isBigger= false;
-				break;
-			case '*':
-			case '/':
-			case '(':
-				isBigger= true;
-				break;
-			}
-			break;
-		case '-':
-			switch (newChar) {
-			case '+':
-			case '-':
-			case ')':
-			case '#':
-				isBigger= false;
-				break;
-			case '*':
-			case '/':
-			case '(':
-				isBigger= true;
-				break;
-			}
-			break;
-		case '*':
-			switch (newChar) {
-			case '+':
-			case '-':
-			case '*':
-			case '/':
-			case ')':
-			case '#':
-				isBigger= false;
-				break;
-			case '(':
-				isBigger= true;
-				break;
-			}
-			break;
-		case '/':
-			switch (newChar) {
-			case '+':
-			case '-':
-			case '*':
-			case '/':
-			case ')':
-			case '#':
-				isBigger= false;
-				break;
-			case '(':
-				isBigger= true;
-				break;
-			}
-			break;
-		case '(':
-			switch (newChar) {
-			case '+':
-			case '-':
-			case '*':
-			case '/':
-			case '(':
-				isBigger= true;
-				break;
-			case ')':
-				isBigger= false;
-				break;
-			case '#':
-				isBigger= false;
-				break;
-			}
-			break;
-		case ')':
-			switch (newChar) {
-			case '+':
-			case '-':
-			case '*':
-			case '/':
-			case '(':
-			case ')':
-			case '#':
-				isBigger= false;
-				break;
-			}
-			break;
-		case '#':
-			switch (newChar) {
-			case '+':
-			case '-':
-			case '*':
-			case '/':
-			case '(':
-				isBigger=true;
-				break;
-			case ')':
-			case '#':
-				isBigger= false;
-				break;
-			}
-			break;
-		}
-		
-		return isBigger;
-	}
-	
-	/**
-	 * 
-	 * @param str  ¼ÆËã¸ø¶¨µÄÖĞ×º±í´ïÊ½
-	 * @return
-	 */
-	public int calculate(String str){
-		char[] res=getEndExpression(str);
-		LinkedList<Integer> stack=new LinkedList<Integer>();
-		for (int i = 0; i < res.length; i++) {
-			if (isNum(res[i])) {
-				stack.push(Character.getNumericValue(res[i]));
-			}else if(res[i]!=0){
-				int num1=stack.pop();
-				int num2=stack.pop();
-				int result=0;
-				switch (res[i]) {
-				case '+':
-					result=num2+num1;
-					break;
-				case '-':
-					result=num2-num1;
-					break;
-				case '*':
-					result=num2*num1;
-					break;
-				case '/':
-					if (num1!=0) {
-						result=num2/num1;
-					}
-					break;
-				}
-				stack.push(result);
-			}
-		}
-		
-		return stack.pop();
-	}
 
-	public static void main(String[] args) {
-		ReversePolishNotation reNotation=new ReversePolishNotation();
-		int result=reNotation.calculate("9+((3-1)*5-4)*3+8/2");
-		System.out.println("");
-		System.out.println("¼ÆËã½á¹û£º"+result);
-	}
+    /**
+     * æŠŠä¸­ç¼€è¡¨è¾¾å¼è½¬åŒ–æˆåç¼€è¡¨è¾¾å¼
+     * @param str
+     */
+    public char[] getEndExpression(String str){
+        if (str==null||"".equals(str)) {
+            return null;
+        }
+        char[] source=str.toCharArray();
+        int index=0;
+        char[] res=new char[source.length];
+        LinkedList<Character> stack=new LinkedList<Character>();
+        stack.push('#');
+        for (int i = 0; i < source.length; i++) {
+            if (isNum(source[i])) {//æ–°å­—ç¬¦æ˜¯å¦æ˜¯æ•°å­—
+                res[index++]=source[i];
+            }else if (isOperator(source[i])||source[i]=='('||source[i]==')'||source[i]=='#') {
+                Character top=stack.peek();
+                if (isBigger(top, source[i])) {//æ–°å­—ç¬¦çš„ä¼˜å…ˆçº§æ¯”æ ˆé¡¶å­—ç¬¦ä¼˜å…ˆçº§é«˜ï¼Œåˆ™è¿›æ ˆ
+                    stack.push(source[i]);
+                }else {//æ ˆé¡¶å­—ç¬¦ä¼˜å…ˆçº§é«˜ï¼Œåˆ™å‡ºæ ˆ
+                    while (!stack.isEmpty()) {
+                        top=stack.peek();//åˆ é™¤æ ˆé¡¶å­—ç¬¦
+                        if (isOperator(top)) {//å¦‚æœæ ˆé¡¶å­—ç¬¦æ˜¯è¿ç®—ç¬¦
+                            res[index++]=top;
+                            stack.removeFirst();
+                        }else if (source[i]==')'&&top=='(') {
+                            stack.removeFirst();
+                            break;
+                        }else if (isBigger(top, source[i])) {
+                            stack.push(source[i]);
+                            break;
+                        }else if (top=='#') {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        while (!stack.isEmpty()) {
+            Character top=stack.pop();
+            if (top!='#') {
+                res[index++]=top;
+            }
+        }
+        //æ‰“å°ç»“æœ
+        System.out.println("åç¼€è¡¨è¾¾å¼ä¸ºï¼š");
+        for (int i = 0; i < res.length; i++) {
+            System.out.print(" "+res[i]);
+        }
+        return res;
+    }
+
+    /**
+     * æ˜¯å¦æ˜¯æ•°å­—
+     * @param c
+     * @return
+     */
+    public boolean isNum(char c){
+        Pattern pattern=Pattern.compile("[0-9]*");
+        Matcher isNum=pattern.matcher(String.valueOf(c));
+        if (!isNum.matches()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * æ˜¯å¦æ˜¯è¿ç®—ç¬¦
+     * @param c
+     * @return
+     */
+    private boolean isOperator(char c){
+        switch (c) {
+            case '+':
+            case '-':
+            case '*':
+            case '/':
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * æ–°çš„å­—ç¬¦çš„ä¼˜å…ˆçº§æ˜¯å¦æ¯”æ ˆé¡¶å­—ç¬¦çš„ä¼˜å…ˆçº§é«˜
+     * @param top		æ ˆé¡¶å­—ç¬¦
+     * @param newChar	æ–°å­—ç¬¦
+     * @return
+     */
+    private boolean isBigger(char top,char newChar) {
+        boolean isBigger=false;
+        switch (top) {
+            case '+':
+                switch (newChar) {
+                    case '+':
+                    case '-':
+                    case ')':
+                    case '#':
+                        isBigger= false;
+                        break;
+                    case '*':
+                    case '/':
+                    case '(':
+                        isBigger= true;
+                        break;
+                }
+                break;
+            case '-':
+                switch (newChar) {
+                    case '+':
+                    case '-':
+                    case ')':
+                    case '#':
+                        isBigger= false;
+                        break;
+                    case '*':
+                    case '/':
+                    case '(':
+                        isBigger= true;
+                        break;
+                }
+                break;
+            case '*':
+                switch (newChar) {
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                    case ')':
+                    case '#':
+                        isBigger= false;
+                        break;
+                    case '(':
+                        isBigger= true;
+                        break;
+                }
+                break;
+            case '/':
+                switch (newChar) {
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                    case ')':
+                    case '#':
+                        isBigger= false;
+                        break;
+                    case '(':
+                        isBigger= true;
+                        break;
+                }
+                break;
+            case '(':
+                switch (newChar) {
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                    case '(':
+                        isBigger= true;
+                        break;
+                    case ')':
+                        isBigger= false;
+                        break;
+                    case '#':
+                        isBigger= false;
+                        break;
+                }
+                break;
+            case ')':
+                switch (newChar) {
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                    case '(':
+                    case ')':
+                    case '#':
+                        isBigger= false;
+                        break;
+                }
+                break;
+            case '#':
+                switch (newChar) {
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                    case '(':
+                        isBigger=true;
+                        break;
+                    case ')':
+                    case '#':
+                        isBigger= false;
+                        break;
+                }
+                break;
+        }
+
+        return isBigger;
+    }
+
+    /**
+     *
+     * @param str  è®¡ç®—ç»™å®šçš„ä¸­ç¼€è¡¨è¾¾å¼
+     * @return
+     */
+    public int calculate(String str){
+        char[] res=getEndExpression(str);
+        LinkedList<Integer> stack=new LinkedList<Integer>();
+        for (int i = 0; i < res.length; i++) {
+            if (isNum(res[i])) {
+                stack.push(Character.getNumericValue(res[i]));
+            }else if(res[i]!=0){
+                int num1=stack.pop();
+                int num2=stack.pop();
+                int result=0;
+                switch (res[i]) {
+                    case '+':
+                        result=num2+num1;
+                        break;
+                    case '-':
+                        result=num2-num1;
+                        break;
+                    case '*':
+                        result=num2*num1;
+                        break;
+                    case '/':
+                        if (num1!=0) {
+                            result=num2/num1;
+                        }
+                        break;
+                }
+                stack.push(result);
+            }
+        }
+
+        return stack.pop();
+    }
+
+    public static void main(String[] args) {
+        ReversePolishNotation reNotation=new ReversePolishNotation();
+        int result=reNotation.calculate("9+((3-1)*5-4)*3+8/2");
+        System.out.println("");
+        System.out.println("è®¡ç®—ç»“æœï¼š"+result);
+    }
 
 }

@@ -1,40 +1,40 @@
 package com.mei.test.astar;
 
 /**
- * ½ÚµãÀà£¬¼ÇÂ¼¾àÀëºÍÂ·¾¶
- * 
+ * èŠ‚ç‚¹ç±»ï¼Œè®°å½•è·ç¦»å’Œè·¯å¾„
+ *
  * @author mei
  *
  */
 public class Node implements Comparable<Node> {
 
-	public Coord coord;
-	public Node parent;// ¸¸½Úµã
-	public int g;// gº¯ÊıÇóµÄÖµ
-	public int h;// hº¯ÊıÇóµÄÖµ
+    public Coord coord;
+    public Node parent;// çˆ¶èŠ‚ç‚¹
+    public int g;// gå‡½æ•°æ±‚çš„å€¼
+    public int h;// hå‡½æ•°æ±‚çš„å€¼
 
-	public Node(int x, int y) {
-		coord = new Coord(x, y);
-	}
+    public Node(int x, int y) {
+        coord = new Coord(x, y);
+    }
 
-	public Node(Coord coord, Node parent, int g, int h) {
-		this.coord = coord;
-		this.parent = parent;
-		this.g = g;
-		this.h = h;
-	}
+    public Node(Coord coord, Node parent, int g, int h) {
+        this.coord = coord;
+        this.parent = parent;
+        this.g = g;
+        this.h = h;
+    }
 
-	@Override
-	public int compareTo(Node node) {
-		if (node == null) {
-			return -1;
-		}
-		if (g + h > node.g + node.h) {
-			return 1;
-		} else if (g + h < node.g + node.h) {
-			return -1;
-		}
-		return 0;
-	}
+    @Override
+    public int compareTo(Node node) {
+        if (node == null) {
+            return -1;
+        }
+        if (g + h > node.g + node.h) {
+            return 1;
+        } else if (g + h < node.g + node.h) {
+            return -1;
+        }
+        return 0;
+    }
 
 }
