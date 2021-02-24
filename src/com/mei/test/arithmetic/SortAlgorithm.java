@@ -4,11 +4,18 @@ import java.util.LinkedList;
 
 /**
  * 排序算法
+ * 1.冒泡排序
+ * 2.选择排序
+ * 3.快速排序
+ * 4.归并排序
+ * 5.基数排序
+ * 6.插入排序
+ * 7.希尔排序
  */
 public class SortAlgorithm {
 
     /**
-     * 蛮力法之冒泡排序
+     * 1.蛮力法之冒泡排序
      *
      * 冒泡排序：8个数以内的排序可用
      *
@@ -34,7 +41,7 @@ public class SortAlgorithm {
     }
 
     /**
-     * 蛮力法之选择排序。
+     * 2.蛮力法之选择排序。
      *
      * 第一次：固定第0项，然后在下标1-array.length中，找一个值最小的，与第0项进行交换。
      * 第二次：固定第1项，然后在下标2-array.length中，找一个值最小的，与第1项进行交换。
@@ -68,7 +75,7 @@ public class SortAlgorithm {
     public static final boolean LEFT_TO_RIGHT = false;
 
     /**
-     * 分治法之：快速排序
+     * 3.分治法之：快速排序
      *
      * 适用场景：数据量大且是线性结构
      *
@@ -120,6 +127,13 @@ public class SortAlgorithm {
         quickSort(array, low + 1, end);// 对右边的数据进行排序
     }
 
+    /**
+     * 4.
+     * @param array
+     * @param left
+     * @param mid
+     * @param right
+     */
     public static void merge(int[] array, int left, int mid, int right) {
         // mid作为右边数组 数据填充的起始下标
         int leftSize = mid - left;
@@ -162,7 +176,7 @@ public class SortAlgorithm {
     }
 
     /**
-     * 分治法之：归并排序
+     * 5.分治法之：归并排序
      *
      * 适用场景：数据量大并且是链式结构 ，相当于是树的后续遍历
      *
@@ -182,7 +196,7 @@ public class SortAlgorithm {
     }
 
     /**
-     * 基数排序
+     * 6.基数排序
      */
     public static void radixSort(LinkedList<Mahjong> list) {
 
@@ -247,7 +261,7 @@ public class SortAlgorithm {
     }
 
     /**
-     * 插入排序
+     * 7.插入排序
      *
      * @param array
      */
@@ -267,7 +281,7 @@ public class SortAlgorithm {
     }
 
     /**
-     * 希尔排序，希尔排序是建立在插入排序的基础之上的，只是多了一个步长而已
+     * 8.希尔排序，希尔排序是建立在插入排序的基础之上的，只是多了一个步长而已
      *
      * 插入排序相当于步长等于1
      *
