@@ -18,8 +18,6 @@ public class SortAlgorithm {
      * 1.蛮力法之冒泡排序
      *
      * 冒泡排序：8个数以内的排序可用
-     *
-     * @param array
      */
     public static void bubblingSort(int array[]) {
         for (int i = array.length - 1; i > 0; i--) {
@@ -50,8 +48,6 @@ public class SortAlgorithm {
      * 省略.................
      *
      * 这样，当循环结束的时候，排序就完成了
-     *
-     * @param array
      */
     public static void selectSort(int[] array) {
 
@@ -72,6 +68,7 @@ public class SortAlgorithm {
     }
 
     public static final boolean RIGHT_TO_LEFT = true;
+
     public static final boolean LEFT_TO_RIGHT = false;
 
     /**
@@ -92,7 +89,8 @@ public class SortAlgorithm {
         int high = end;
         int stackValue = array[low];
         boolean direction = RIGHT_TO_LEFT;
-        L1: while (low < high) {
+        L1:
+        while (low < high) {
             if (direction == RIGHT_TO_LEFT) {// 从右到左遍历F
                 for (int i = high; i > low; i--) {// i>left就好，不用i>=left;
                     if (array[i] <= stackValue) {// 找到比暂存只小的数，并填充到低位
@@ -128,11 +126,7 @@ public class SortAlgorithm {
     }
 
     /**
-     * 4.
-     * @param array
-     * @param left
-     * @param mid
-     * @param right
+     * 4.归并排序
      */
     public static void merge(int[] array, int left, int mid, int right) {
         // mid作为右边数组 数据填充的起始下标
@@ -179,10 +173,6 @@ public class SortAlgorithm {
      * 5.分治法之：归并排序
      *
      * 适用场景：数据量大并且是链式结构 ，相当于是树的后续遍历
-     *
-     * @param array
-     * @param left
-     * @param right
      */
     public static void mergeSort(int[] array, int left, int right) {
         if (left == right) {
@@ -262,8 +252,6 @@ public class SortAlgorithm {
 
     /**
      * 7.插入排序
-     *
-     * @param array
      */
     public static void insertSort(int[] array) {
 
@@ -284,8 +272,6 @@ public class SortAlgorithm {
      * 8.希尔排序，希尔排序是建立在插入排序的基础之上的，只是多了一个步长而已
      *
      * 插入排序相当于步长等于1
-     *
-     * @param array
      */
     public static void shellSort(int[] array, int step) {
 
@@ -302,10 +288,14 @@ public class SortAlgorithm {
         }
     }
 
-    static int[][] graph = new int[][] { { 0, 12, 100, 100, 100, 16, 14 },
-            { 12, 0, 10, 100, 100, 7, 100 }, { 100, 10, 0, 3, 5, 6, 100 },
-            { 100, 100, 3, 0, 4, 100, 100 }, { 100, 100, 5, 4, 0, 2, 8 },
-            { 16, 7, 6, 100, 2, 0, 9 }, { 14, 100, 100, 100, 8, 9, 0 } };
+    static int[][] graph = new int[][]{
+            {0, 12, 100, 100, 100, 16, 14},
+            {12, 0, 10, 100, 100, 7, 100},
+            {100, 10, 0, 3, 5, 6, 100},
+            {100, 100, 3, 0, 4, 100, 100},
+            {100, 100, 5, 4, 0, 2, 8},
+            {16, 7, 6, 100, 2, 0, 9},
+            {14, 100, 100, 100, 8, 9, 0}};
 
     public static void floyd() {
         int length = graph.length;
@@ -322,7 +312,7 @@ public class SortAlgorithm {
                 for (int j = 0; j < length; j++) {
                     if (graph[i][j] > (graph[i][k] + graph[k][j])) {
                         graph[i][j] = graph[i][k] + graph[k][j];
-                        path[i][j] =k;
+                        path[i][j] = k;
                     }
                 }
             }
@@ -354,7 +344,7 @@ public class SortAlgorithm {
 
     public static void main(String[] args) {
 
-        int array[] = { 2, 4, 1, 5, 9, 3, 7, 8, 6 };
+        int array[] = {2, 4, 1, 5, 9, 3, 7, 8, 6};
         // bubblingSort(array);
         // selectSort(array);
         // for (int i = 0; i < array.length; i++) {
